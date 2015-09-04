@@ -313,3 +313,8 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 
 " color a la lista de youcompleteme
 highlight Pmenu ctermfg=15 ctermbg=0 guifg=#ffffff guibg=#000000
+
+" barra de estado line
+set noshowmode
+let g:airline_theme='badwolf'
+"=====================
