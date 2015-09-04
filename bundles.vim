@@ -95,6 +95,7 @@ Bundle 'kien/rainbow_parentheses.vim'
 
 "------ Symfony2 --------
 Plugin 'file:///~/.vim/bundle/myPlugins', {'pinned': 1}
+Bundle 'evidens/vim-twig'
 
 "--------------
 " Color Schemes
