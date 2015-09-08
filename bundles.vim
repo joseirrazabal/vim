@@ -50,7 +50,8 @@ Bundle 'tpope/vim-fugitive'
 " Bundle 'Lokaltog/vim-powerline'
 Bundle 'bling/vim-airline'
 Bundle 'scrooloose/syntastic'
-Bundle 'bronson/vim-trailing-whitespace'
+" Bundle 'bronson/vim-trailing-whitespace'
+Bundle 'ntpeters/vim-better-whitespace'
 
 "-------------
 " Other Utils

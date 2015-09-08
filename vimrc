@@ -171,14 +171,18 @@ autocmd FileType c setlocal omnifunc=ccomplete#Complete
 set wildignore+=*/tmp/*,*.so,*.o,*.a,*.obj,*.swp,*.zip,*.pyc,*.pyo,*.class,.DS_Store  " MacOSX/Linux
 let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 
+"por defecto no ver espacios en blanco con color
+let g:better_whitespace_enabled=0
+ 
 " Keybindings for plugin toggle
-nnoremap <F2> :set invpaste paste?<CR>
-set pastetoggle=<F2>
+map <F2> :GundoToggle<cr>
 nmap <F3> :NERDTreeToggle<cr>
 nmap <F4> :TagbarToggle<cr>
 nmap <F5> :set wrap!<CR>
-nmap <F6> :GundoToggle<cr>
+nnoremap <F6> :set invpaste paste?<CR>
+set pastetoggle=<F6>
 nmap <F7> :IndentGuidesToggle<cr>
+map <F8> :ToggleWhitespace<CR>
 nmap  <D-/> :
 nnoremap <leader>a :Ack
 nnoremap <leader>v V`]
