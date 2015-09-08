@@ -173,7 +173,8 @@ let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 
 "por defecto no ver espacios en blanco con color
 let g:better_whitespace_enabled=0
- 
+let g:airline#extensions#whitespace#enabled = 0
+
 " Keybindings for plugin toggle
 map <F2> :GundoToggle<cr>
 nmap <F3> :NERDTreeToggle<cr>
