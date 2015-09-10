@@ -4,6 +4,8 @@ filetype off                   " required!
 set rtp+=~/.vim/bundle/Vundle/
 call vundle#rc()
 
+"prueba
+
 " let Vundle manage Vundle
 " required!
 Bundle 'gmarik/Vundle'
