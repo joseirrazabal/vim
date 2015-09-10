@@ -101,7 +101,7 @@ autocmd Syntax lisp,scheme,clojure,racket RainbowParenthesesToggle
 let g:EasyMotion_leader_key = '<Leader>'
 
 " Tagbar
-let g:tagbar_left=1
+let g:tagbar_right=1
 let g:tagbar_width=30
 let g:tagbar_autofocus = 1
 let g:tagbar_sort = 0
@@ -132,16 +132,17 @@ if executable('coffeetags')
 endif
 
 " Nerd Tree
+let NERDTreeChDirMode=0
 let NERDChristmasTree=0
 let NERDTreeWinSize=30
-let NERDTreeChDirMode=2
+" let NERDTreeChDirMode=2
 " let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
 
 " ignorar todo estos directorios y archivos
 let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$', 'node_modules', 'bower_components', 'bin', 'vendor', 'cache', 'logs', 'AppCache.php', 'autoload.php', 'bootstrap.php.cache', 'check.php', 'console', 'phpunit.xml.dist', 'SymfonyRequirements.php', 'README.md', 'composer.phar', 'composer.lock']
 " let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$',  '\~$']
 let NERDTreeShowBookmarks=1
-let NERDTreeWinPos = "right"
+" let NERDTreeWinPos = "left"
 
 " nerdcommenter
 let NERDSpaceDelims=1
@@ -323,3 +324,8 @@ highlight Pmenu ctermfg=15 ctermbg=0 guifg=#ffffff guibg=#000000
 set noshowmode
 let g:airline_theme='badwolf'
 "=====================
+
+"Ack
+let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+nmap <leader>a :tab split<CR>:Ack ""<left>
+nmap <leader>A :tab split<CR>:Ack <C-r><C-w><C-R>
