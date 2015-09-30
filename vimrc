@@ -326,6 +326,19 @@ let g:airline_theme='badwolf'
 "=====================
 
 "Ack
-let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+let g:ackprg="ack -s -H --nocolor --nogroup --column"
 nmap <leader>a :tab split<CR>:Ack ""<left>
 nmap <leader>A :tab split<CR>:Ack <C-r><C-w><C-R>
+
+set noerrorbells visualbell t_vb= " don't beep
+
+let g:tagbar_type_php  = {
+  \ 'ctagstype' : 'php',
+  \ 'kinds'     : [
+      \ 'i:interfaces',
+      \ 'c:classes',
+      \ 'd:constant definitions',
+      \ 'f:functions',
+      \ 'j:javascript functions:1'
+  \ ]
+\ }
