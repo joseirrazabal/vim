@@ -341,7 +341,7 @@ nmap <leader>a :tab split<CR>:Ack ""<left>
 nmap <leader>A :tab split<CR>:Ack <C-r><C-w><C-R>
 
 " ctrlp
-set wildignore+=*/tmp/*,*.so,*.o,*.a,*.obj,*.swp,*.zip,*.pyc,*.pyo,*.class,.DS_Store  " MacOSX/Linux
+set wildignore+=*/tmp/*,*.so,*.o,*.a,*.obj,*.swp,*.zip,*.pyc,*.pyo,*.class,.DS_Store,*/node_modules/*,*/vendor/*,*/bower_components/*,*/cache/* " MacOSX/Linux
 let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 
 " Unite
