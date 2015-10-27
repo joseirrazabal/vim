@@ -44,9 +44,12 @@ Bundle 'nathanaelkane/vim-indent-guides'
 "--------------
 Bundle 'scrooloose/nerdtree'
 Bundle 'majutsushi/tagbar'
+Bundle 'tpope/vim-fugitive'
+
 Bundle 'mileszs/ack.vim'
 Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-fugitive'
+" Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/vimproc.vim'
 " Bundle 'Lokaltog/vim-powerline'
 Bundle 'bling/vim-airline'
 Bundle 'scrooloose/syntastic'

@@ -168,10 +168,6 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType c setlocal omnifunc=ccomplete#Complete
 
-" ctrlp
-set wildignore+=*/tmp/*,*.so,*.o,*.a,*.obj,*.swp,*.zip,*.pyc,*.pyo,*.class,.DS_Store  " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
-
 "por defecto no ver espacios en blanco con color
 let g:better_whitespace_enabled=0
 let g:airline#extensions#whitespace#enabled = 0
@@ -325,13 +321,9 @@ set noshowmode
 let g:airline_theme='badwolf'
 "=====================
 
-"Ack
-let g:ackprg="ack -s -H --nocolor --nogroup --column"
-nmap <leader>a :tab split<CR>:Ack ""<left>
-nmap <leader>A :tab split<CR>:Ack <C-r><C-w><C-R>
-
 set noerrorbells visualbell t_vb= " don't beep
 
+" panel de functiones y variables
 let g:tagbar_type_php  = {
   \ 'ctagstype' : 'php',
   \ 'kinds'     : [
@@ -342,3 +334,64 @@ let g:tagbar_type_php  = {
       \ 'j:javascript functions:1'
   \ ]
 \ }
+
+"Ack
+let g:ackprg="ack -s -H --nocolor --nogroup --column"
+nmap <leader>a :tab split<CR>:Ack ""<left>
+nmap <leader>A :tab split<CR>:Ack <C-r><C-w><C-R>
+
+" ctrlp
+set wildignore+=*/tmp/*,*.so,*.o,*.a,*.obj,*.swp,*.zip,*.pyc,*.pyo,*.class,.DS_Store  " MacOSX/Linux
+let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
+
+" Unite
+" let g:unite_source_history_yank_enable = 1
+" call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
+" nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
+" nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
+" nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
+" nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
+" nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+
+" Custom mappings for the unite buffer
+" autocmd FileType unite call s:unite_settings()
+" function! s:unite_settings()
+  " let b:SuperTabDisabled=1
+  " imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  " imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+" endfunction
+
+" === Unite === 
+
+" call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" call unite#filters#sorter_default#use(['sorter_rank'])
+
+" let g:unite_source_history_yank_enable = 1
+" let g:unite_force_overwrite_statusline = 0
+
+" call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
+  " \ 'ignore_pattern', join([
+  " \ '\.tmp/',
+  " \ '\.svn/',
+  " \ '\cache/',
+  " \ '\base/',
+  " \ '\log/',
+  " \ '\vendor/',
+  " \ '*.so/',
+  " \ '*.o/',
+  " \ '*.swp/',
+  " \ ], '\|'))
+
+" nnoremap [unite] <Nop>
+" nmap <space> [unite]
+
+" General purpose
+"nnoremap [unite]<space> :Unite -no-split -start-insert source<cr>
+
+" grep
+" nnoremap [unite]g :Unite -buffer-name=Buscador -toggle -start-insert -direction=botright -winheight=10 -default-action=splitdrop grep:.<cr>
+
+" call unite#custom#source('file_rec/async','sorters','sorter_rank')
+" replacing unite with ctrl-p
+" nnoremap <silent> <C-p> :Unite -start-insert -buffer-name=files -winheight=10 file_rec/async<cr>
