@@ -1,0 +1,11 @@
+--ignore-dir=logs
+--ignore-dir=cache
+--ignore-dir=vendor
+--ignore-dir=bower_components
+--ignore-dir=npm_modules
+--ignore-dir=tmp
+--ignore-file=is:.cache
+--color
+--follow
+--group
+--sort-files
