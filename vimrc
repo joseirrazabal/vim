@@ -64,6 +64,7 @@ autocmd FileType coffee,javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4 textwidth=120
 autocmd FileType html,htmldjango,xhtml,haml setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=0
 autocmd FileType sass,scss,css setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
+autocmd FileType typescript :set makeprg=tsc
 
 " syntax support
 autocmd Syntax javascript set syntax=jquery   " JQuery syntax support
@@ -319,6 +320,10 @@ highlight Pmenu ctermfg=15 ctermbg=0 guifg=#ffffff guibg=#000000
 " barra de estado line
 set noshowmode
 let g:airline_theme='badwolf'
+" let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''Session guardada'', ''Sin session'')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
+" mostar si esta guardada o no la session de vim
+let g:airline_section_y='%{ObsessionStatus("Session", "Sin Session", "Sin Session")}'
+
 "=====================
 
 set noerrorbells visualbell t_vb= " don't beep

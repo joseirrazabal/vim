@@ -4,6 +4,9 @@ filetype off                   " required!
 set rtp+=~/.vim/bundle/Vundle/
 call vundle#rc()
 
+" para jsx react
+Bundle 'git://github.com/jsx/jsx.vim.git'
+
 " let Vundle manage Vundle
 " required!
 Bundle 'gmarik/Vundle'
@@ -87,6 +90,14 @@ Bundle 'tpope/vim-markdown'
 
 "------- Ruby --------
 " Bundle 'tpope/vim-endwise'
+
+"------ Angular typeScript ---- '
+Bundle 'leafgarland/typescript-vim'
+Bundle 'Quramy/vim-js-pretty-template'
+Bundle 'mhartington/vim-angular2-snippets'
+
+" ----- para guardar la session "
+Bundle 'tpope/vim-obsession.git'
 
 "------- Go ----------
 Bundle 'fatih/vim-go'
