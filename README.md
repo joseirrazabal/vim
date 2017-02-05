@@ -1,4 +1,4 @@
-sudo aptitude install vim-autocompleteme git -y
+sudo aptitude install vim-youcompleteme git -y
 
 git cone https://github.com/joseirrazabal/vim.git ~/.vim
 
