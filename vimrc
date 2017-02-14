@@ -341,13 +341,17 @@ let g:tagbar_type_php  = {
 \ }
 
 "Ack
-let g:ackprg="ack -s -H --nocolor --nogroup --column"
+let g:ackprg="ack -s -H --nocolor --nogroup --column --ignore-dir=build --ignore-dir=node_modules --ignore-dir=.idea --ignore-dir=.happypack"
 nmap <leader>a :tab split<CR>:Ack ""<left>
 nmap <leader>A :tab split<CR>:Ack <C-r><C-w><C-R>
 
 " ctrlp
-set wildignore+=*/tmp/*,*.so,*.o,*.a,*.obj,*.swp,*.zip,*.pyc,*.pyo,*.class,.DS_Store,*/node_modules/*,*/vendor/*,*/bower_components/*,*/cache/* " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
+"set wildignore+=*/tmp/*,*.so,*.o,*.a,*.obj,*.swp,*.zip,*.pyc,*.pyo,*.class,.DS_Store,*/node_modules/*,*/vendor/*,*/bower_components/*,*/cache/* " MacOSX/Linux
+"let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
+
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
+let g:ctrlp_user_command = 'find %s -type f | grep -v "`cat .gitignore`"'
+
 
 " Unite
 " let g:unite_source_history_yank_enable = 1
