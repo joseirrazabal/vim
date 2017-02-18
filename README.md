@@ -1,4 +1,4 @@
-sudo aptitude install ack-grep vim-youcompleteme git -y
+sudo aptitude install exuberant-ctags ack-grep vim-youcompleteme git -y
 
 git clone https://github.com/joseirrazabal/vim.git ~/.vim
 
