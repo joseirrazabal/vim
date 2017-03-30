@@ -1,406 +1,558 @@
-source ~/.vim/bundles.vim
+" | | | (_)
+" | | | |_ _ __ ___  _ __ ___
+" | | | | | '_ ` _ \| '__/ __|
+" \ \_/ / | | | | | | | | (__
+"  \___/|_|_| |_| |_|_|  \___|
+"
 
-" encoding dectection
-set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
+" Setup NeoBundle  ----------------------------------------------------------{{{
+" If vundle is not installed, do it first
+  if (!isdirectory(expand("$HOME/.vim/repos/github.com/Shougo/dein.vim")))
+    call system(expand("mkdir -p $HOME/.vim/repos/github.com"))
+    call system(expand("git clone https://github.com/Shougo/dein.vim $HOME/.vim/repos/github.com/Shougo/dein.vim"))
+  endif
 
-" enable filetype dectection and ft specific plugin/indent
-filetype plugin indent on
 
-" enable syntax hightlight and completion
-syntax on
+  set nocompatible
 
-"--------
-" Vim UI
-"--------
-" color scheme
+" Required:
+    set runtimepath+=~/.vim/repos/github.com/Shougo/dein.vim/
+    " set runtimepath+=~/Github/deoplete-angular/
+
+" Required:
+  call dein#begin(expand('~/.vim'))
+  let pluginsExist = 0
+" Let NeoBundle manage NeoBundle
+" Required:
+  " instalacion de plugins
+  call dein#add('Shougo/dein.vim')
+  call dein#add('haya14busa/dein-command.vim')
+
+  call dein#add('jistr/vim-nerdtree-tabs') " permite abrir ubicacion del archivo en el nerdtree
+  call dein#add('thaerkh/vim-workspace') " guarda session
+  call dein#add('tpope/vim-abolish')
+
+  call dein#add('airblade/vim-gitgutter') " muestra + o - al lado de numeros solo git
+  "call dein#add('mhinz/vim-signify') " muestra + o - al lado de numero s(para todos svn, git, etc )
+  
+  " syntax
+  call dein#add('flazz/vim-colorschemes')
+  call dein#add('othree/javascript-libraries-syntax.vim')
+
+
+  " call dein#add('othree/yajs.vim', {'on_ft': 'javascript'})
+  " call dein#add('othree/es.next.syntax.vim', {'on_ft': 'javascript'}) "syntax for ecma require yajs
+  " call dein#add('othree/jsdoc-syntax.vim', {'on_ft':['javascript', 'typescript']}) " comment en js
+  " call dein#add('pangloss/vim-javascript')
+  " call dein#add('mxw/vim-jsx')
+
+
+  call dein#add('sheerun/vim-polyglot')
+  call dein#add('bigfish/vim-js-context-coloring')
+
+ 
+  " call dein#add('crusoexia/vim-monokai')
+  " call dein#add('Quramy/vim-js-pretty-template')
+  " call dein#add('othree/html5.vim')
+  " call dein#add('1995eaton/vim-better-javascript-completion', {'on_ft': ['javascript']})
+  " call dein#add('kchmck/vim-coffee-script', {'on_ft': 'coffee'})
+  " call dein#add('hail2u/vim-css3-syntax', {'on_ft':['css','scss']})
+ 
+  call dein#add('elzr/vim-json', {'on_ft': 'json'})
+  call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
+  call dein#add('dhruvasagar/vim-table-mode')
+  call dein#add('suan/vim-instant-markdown', {'on_ft': 'markdown'})
+  call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
+  call dein#add('HerringtonDarkholme/yats.vim')
+  call dein#add('Quramy/tsuquyomi')
+
+  call dein#add('heavenshell/vim-flood')
+  " call dein#add('mhartington/oceanic-next')
+  " call dein#add('Yggdroot/indentLine') "muestra el | en la identacion
+  call dein#add('Raimondi/delimitMate', {'on_ft': ['javascript', 'typescript', 'css', 'scss']})
+  call dein#add('valloric/MatchTagAlways', {'on_ft': 'html'})
+
+  call dein#add('tpope/vim-fugitive')
+  call dein#add('jreybert/vimagit')
+  call dein#add('Xuyuanp/nerdtree-git-plugin')
+  " call dein#add('https://github.com/jaxbot/github-issues.vim')
+
+  call dein#add('tpope/vim-repeat')
+  call dein#add('scrooloose/syntastic')
+  call dein#add('editorconfig/editorconfig-vim')
+  call dein#add('scrooloose/nerdtree')
+  call dein#add('AndrewRadev/switch.vim')
+  call dein#add('christoomey/vim-tmux-navigator')
+  call dein#add('tmux-plugins/vim-tmux')
+  call dein#add('tmux-plugins/vim-tmux-focus-events')
+  call dein#add('vim-airline/vim-airline')
+  call dein#add('tpope/vim-surround')
+  call dein#add('tomtom/tcomment_vim')
+  call dein#add('mattn/emmet-vim', {'on_ft': 'html'})
+  call dein#add('Chiel92/vim-autoformat')
+  " call dein#add('ap/vim-css-color')
+  call dein#add('Shougo/unite.vim')
+  call dein#add('Shougo/Denite.nvim')
+  call dein#add('Shougo/unite-outline')
+  call dein#add('ujihisa/unite-colorscheme')
+  call dein#add('junkblocker/unite-codesearch')
+  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+  " call dein#add('Shougo/neocomplete.vim')
+  " call dein#add('maralla/completor.vim')
+  call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
+  call dein#add('ternjs/tern_for_vim', {'build': 'npm install'})
+  call dein#add('Valloric/YouCompleteMe', {'build': './install.py'})
+  call dein#add('Shougo/neco-vim', {'on_ft': 'vim'})
+  call dein#add('Shougo/neoinclude.vim')
+  call dein#add('ujihisa/neco-look')
+  call dein#add('zchee/deoplete-jedi')
+  call dein#add('Shougo/neosnippet.vim')
+  call dein#add('Shougo/neosnippet-snippets')
+  call dein#add('honza/vim-snippets')
+  call dein#add('matthewsimo/angular-vim-snippets')
+  call dein#add('mhinz/vim-sayonara')
+  call dein#add('mattn/webapi-vim')
+  call dein#add('mattn/gist-vim')
+  call dein#add('terryma/vim-multiple-cursors')
+  call dein#add('rhysd/github-complete.vim')
+  call dein#add('junegunn/goyo.vim')
+  call dein#add('vim-scripts/SyntaxRange')
+  call dein#add('zchee/deoplete-go', {'build': 'make'},{'on_ft': 'go'})
+  call dein#add('rhysd/nyaovim-popup-tooltip')
+  call dein#add('jacoborus/tender.vim')
+  call dein#add('ryanoasis/vim-devicons')
+  call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
+  if dein#check_install()
+    call dein#install()
+  endif
+  call dein#end()
+
+" Required:
+  filetype plugin indent on
+" }}}
+
+" System Settings  ----------------------------------------------------------{{{
+
+" Let airline tell me my status
+  "set termguicolors
+  set noshowmode
+  set noswapfile
+  filetype on
+  set relativenumber number
+  set tabstop=2 shiftwidth=2 expandtab
+  set conceallevel=0
+" block select not limited by shortest line
+  set virtualedit=
+  set wildmenu
+  set laststatus=2
+  "set colorcolumn=100
+  set wrap linebreak nolist
+  set wildmode=full
+" leader is ,
+  let mapleader = ','
+  set undofile
+  set undodir="$HOME/.VIM_UNDO_FILES"
+" Remember cursor position between vim sessions
+  autocmd BufReadPost *
+              \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+              \   exe "normal! g'\"" |
+              \ endif
+              " center buffer around cursor when opening files
+  autocmd BufRead * normal zz
+  let g:jsx_ext_required = 0
+  set complete=.,w,b,u,t,k
+  let g:gitgutter_max_signs = 1000  " default value
+
+  autocmd InsertEnter * let save_cwd = getcwd() | set autochdir
+  autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
+  let g:indentLine_char='│'
+  let g:indentLine_enabled=0
+  " enable deoplete
+
+  let g:neocomplete#enable_at_startup = 1
+  let g:unite_source_codesearch_command = '$HOME/bin/csearch'
+  let g:table_mode_corner="|"
+
+" }}}
+
+" System mappings  ----------------------------------------------------------{{{
+
+" No need for ex mode
+  nnoremap Q <nop>
+" recording macros is not my thing
+  map q <Nop>
+" exit insert, dd line, enter insert
+  inoremap <c-d> <esc>ddi
+" Navigate between display lines
+  noremap  <silent> <Up>   gk
+  noremap  <silent> <Down> gj
+  noremap  <silent> k gk
+  noremap  <silent> j gj
+  "noremap  <silent> <Home> g<Home>
+  noremap  <silent> <End>  g<End>
+  "inoremap <silent> <Home> <C-o>g<Home>
+  inoremap <silent> <End>  <C-o>g<End>
+" copy current files path to clipboard
+  nmap cp :let @+ = expand("%") <cr>
+
+" ,f to format code, requires formatters: read the docs
+  noremap <leader>f :Autoformat<CR>
+  noremap <leader>TM :TableModeToggle<CR>
+" exit insert, dd line, enter insert
+  inoremap <c-d> <esc>ddi
+  noremap H <HOME>
+  noremap HH ^
+  noremap L g_
+  noremap J 5j
+  noremap K 5k
+" this is the best, let me tell you why
+" how annoying is that everytime you want to do something in vim
+" you have to do shift-; to get :, can't we just do ;?
+" Plus what does ; do anyways??
+" if you do have a plugin that needs ;, you can just wap the mapping
+" nnoremap : ;
+" give it a try and you will like it
+  nnoremap ; :
+  inoremap <c-f> <c-x><c-f>
+" Copy to osx clipboard
+  vnoremap <C-c> "*y<CR>
+  "vnoremap y "*y<CR>
+  "nnoremap Y "*Y<CR>
+  let g:multi_cursor_next_key='<C-n>'
+  let g:multi_cursor_prev_key='<C-p>'
+  let g:multi_cursor_skip_key='<C-x>'
+  let g:multi_cursor_quit_key='<Esc>'
+
+" Align blocks of text and keep them selected
+  vmap < <gv
+  vmap > >gv
+  nnoremap <leader>d "_d
+  vnoremap <leader>d "_d
+  vnoremap <c-/> :TComment<cr>
+  " map <esc> :noh<cr>
+autocmd FileType typescript nmap <buffer> <Leader>T : <C-u>echo tsuquyomi#hint()<CR>
+
+nnoremap <leader>e :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+function! s:PlaceholderImgTag(size)
+  let url = 'http://dummyimage.com/' . a:size . '/000000/555555'
+  let [width,height] = split(a:size, 'x')
+  execute "normal a<img src=\"".url."\" width=\"".width."\" height=\"".height."\" />"
+  endfunction
+command! -nargs=1 PlaceholderImgTag call s:PlaceholderImgTag(<f-args>)
+
+"}}}
+
+" Themes, Commands, etc  ----------------------------------------------------{{{
+" Theme
+syntax enable
+colorscheme OceanicNext
 set background=dark
-colorscheme ir_black
-" color solarized
+" set background=light
+" no need to fold things in markdown all the time
+let g:vim_markdown_folding_disabled = 1
+" turn on spelling for markdown files
+autocmd BufRead,BufNewFile *.md setlocal spell complete+=kspell
+" highlight bad words in red
+autocmd BufRead,BufNewFile *.md hi SpellBad guibg=#ff2929 guifg=#ffffff" ctermbg=224
+" disable markdown auto-preview. Gets annoying
+let g:instant_markdown_autostart = 0
+"}}}
 
-" highlight current line
-" au WinLeave * set nocursorline nocursorcolumn
-" au WinEnter * set cursorline cursorcolumn
-" set cursorline cursorcolumn
+" Fold, gets it's own section  ----------------------------------------------{{{
 
-" search
-set incsearch
-" set highlight 	" conflict with highlight current line
-set ignorecase
-" set smartcase
+function! MyFoldText() " {{{
+    let line = getline(v:foldstart)
 
-" editor settings
-set history=1000
-set nocompatible
-set nofoldenable                                                  " disable folding"
-set confirm                                                       " prompt when existing from an unsaved file
-set backspace=indent,eol,start                                    " More powerful backspacing
-set t_Co=256                                                      " Explicitly tell vim that the terminal has 256 colors "
-" set mouse=a                                                       " use mouse in all modes
-set report=0                                                      " always report number of lines changed                "
-set nowrap                                                        " dont wrap lines
-set scrolloff=5                                                   " 5 lines above/below cursor when scrolling
-set number                                                        " show line numbers
-set showmatch                                                     " show matching bracket (briefly jump)
-set showcmd                                                       " show typed command in status bar
-set title                                                         " show file in titlebar
-set laststatus=2                                                  " use 2 lines for the status bar
-set matchtime=2                                                   " show matching bracket for 0.2 seconds
-set matchpairs+=<:>                                               " specially for html
-" set relativenumber
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
 
-" Default Indentation
-set autoindent
-set smartindent     " indent when
-set tabstop=2       " tab width
-set softtabstop=2   " backspace
-set shiftwidth=2    " indent width
-" set textwidth=79
-" set smarttab
-set expandtab       " expand tab to space
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
 
-autocmd FileType php setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
-autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
-autocmd FileType coffee,javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
-autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4 textwidth=120
-autocmd FileType html,htmldjango,xhtml,haml setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=0
-autocmd FileType sass,scss,css setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
-autocmd FileType typescript :set makeprg=tsc
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+endfunction " }}}
 
-" syntax support
-autocmd Syntax javascript set syntax=jquery   " JQuery syntax support
-" js
-let g:html_indent_inctags = "html,body,head,tbody"
-let g:html_indent_script1 = "inc"
-let g:html_indent_style1 = "inc"
+function! JavaScriptFold() "{{{
+  " syntax region foldBraces start=/{/ end=/}/ transparent fold keepend extend
+  setlocal foldmethod=syntax
+  setlocal foldlevel=99
+  echo "hello"
+  syn region foldBraces start=/{/ skip=/\(\/\/.*\)\|\(\/.*\/\)/ end=/}/ transparent fold keepend extend
+endfunction "}}}
 
-"-----------------
-" Plugin settings
-"-----------------
-" Rainbow parentheses for Lisp and variants
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-let g:rbpt_max = 16
-autocmd Syntax lisp,scheme,clojure,racket RainbowParenthesesToggle
+" function! HTMLFold() "{{{
+"   " syn sync fromstart
+"   set foldmethod=syntax
+"   syn region HTMLFold start=+^<\([^/?!><]*[^/]>\)\&.*\(<\1\|[[:alnum:]]\)$+ end=+^</.*[^-?]>$+ fold transparent keepend extend
+"   syn match HTMLCData "<!\[CDATA\[\_.\{-}\]\]>" fold transparent extend
+"   syn match HTMLCommentFold "<!--\_.\{-}-->" fold transparent extend
+" endfunction "}}}
 
-" easy-motion
-let g:EasyMotion_leader_key = '<Leader>'
+set foldtext=MyFoldText()
 
-" Tagbar
-let g:tagbar_right=1
-let g:tagbar_width=30
-let g:tagbar_autofocus = 1
-let g:tagbar_sort = 0
-let g:tagbar_compact = 1
-" tag for coffee
-if executable('coffeetags')
-  let g:tagbar_type_coffee = {
-        \ 'ctagsbin' : 'coffeetags',
-        \ 'ctagsargs' : '',
-        \ 'kinds' : [
-        \ 'f:functions',
-        \ 'o:object',
-        \ ],
-        \ 'sro' : ".",
-        \ 'kind2scope' : {
-        \ 'f' : 'object',
-        \ 'o' : 'object',
-        \ }
-        \ }
+autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
+autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
 
-  let g:tagbar_type_markdown = {
-    \ 'ctagstype' : 'markdown',
-    \ 'sort' : 0,
-    \ 'kinds' : [
-        \ 'h:sections'
-    \ ]
-    \ }
-endif
+autocmd FileType vim setlocal fdc=1
+set foldlevel=99
+" Space to toggle folds.
+nnoremap <Space> za
+vnoremap <Space> za
+autocmd FileType vim setlocal foldmethod=marker
+autocmd FileType vim setlocal foldlevel=0
 
-" Nerd Tree
-let NERDTreeChDirMode=0
-let NERDChristmasTree=0
-let NERDTreeWinSize=30
-" let NERDTreeChDirMode=2
-" let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
+" au FileType html call HTMLFold()
+" autocmd FileType html setlocal foldmethod=syntax
+autocmd FileType html setlocal fdl=99
 
-" ignorar todo estos directorios y archivos
-let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$', 'node_modules', 'bower_components', 'bin', 'vendor', 'cache', 'logs', 'AppCache.php', 'autoload.php', 'bootstrap.php.cache', 'check.php', 'console', 'phpunit.xml.dist', 'SymfonyRequirements.php', 'README.md', 'composer.phar', 'composer.lock']
-" let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$',  '\~$']
-let NERDTreeShowBookmarks=1
-" let NERDTreeWinPos = "left"
+" autocmd FileType javascript call JavaScriptFold()
+autocmd FileType javascript,html,css,scss,typescript setlocal foldlevel=99
+autocmd FileType javascript,typescript,css,scss,json setlocal foldmethod=marker
+autocmd FileType javascript,typescript,css,scss,json setlocal foldmarker={,}
+autocmd FileType coffee setl foldmethod=indent
+" au FileType html nnoremap <buffer> <leader>F zfat
+" }}}
 
-" nerdcommenter
-let NERDSpaceDelims=1
-" nmap <D-/> :NERDComToggleComment<cr>
-let NERDCompactSexyComs=1
+" NERDTree ------------------------------------------------------------------{{{
 
-" ZenCoding
-let g:user_emmet_expandabbr_key='<C-i>'
+map <silent> - :NERDTreeToggle<CR>
+autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+let NERDTreeShowHidden=1
+let g:NERDTreeWinSize=45
+let g:NERDTreeAutoDeleteBuffer=1
 
-" powerline
-"let g:Powerline_symbols = 'fancy'
+  " let g:webdevicons_enable_nerdtree = 0
+  let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+  let g:DevIconsEnableFoldersOpenClose = 1
+  " let g:NERDTreeFileExtensionHighlightFullName = 1
 
-" SuperTab
-" let g:SuperTabDefultCompletionType='context'
-let g:SuperTabDefaultCompletionType = '<C-X><C-U>'
-let g:SuperTabRetainCompletionType=2
+"}}}
 
-" Enable omni completion.
-" autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType twig,html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType c setlocal omnifunc=ccomplete#Complete
+" Snipppets -----------------------------------------------------------------{{{
 
-"por defecto no ver espacios en blanco con color
-let g:better_whitespace_enabled=0
-let g:airline#extensions#whitespace#enabled = 0
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+" Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/neosnippets, ~/Github/ionic-snippets, ~/.vim/bundle/angular-vim-snippets/snippets'
 
-" Keybindings for plugin toggle
-map <F2> :GundoToggle<cr>
-nmap <F3> :NERDTreeToggle<cr>
-nmap <F4> :TagbarToggle<cr>
-nmap <F5> :set wrap!<CR>
-nnoremap <F6> :set invpaste paste?<CR>
-set pastetoggle=<F6>
-nmap <F7> :IndentGuidesToggle<cr>
-map <F8> :ToggleWhitespace<CR>
-nmap  <D-/> :
-nnoremap <leader>a :Ack
-nnoremap <leader>v V`]
+" SuperTab like snippets behavior.
+" imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)"
+" \: pumvisible() ? "\<C-n>" : "\<TAB>"
+" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)"
+" \: "\<TAB>"
 
-"------------------
-" Useful Functions
-"------------------
-" easier navigation between split windows
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
+"}}}
 
-" When editing a file, always jump to the last cursor position
-autocmd BufReadPost *
-      \ if ! exists("g:leave_my_cursor_position_alone") |
-      \     if line("'\"") > 0 && line ("'\"") <= line("$") |
-      \         exe "normal g'\"" |
-      \     endif |
-      \ endif
+" Typescript & Javscript omni complete --------------------------------------{{{
+  let g:vimjs#casesensistive = 1
+  let g:vimjs#smartcomplete = 1
+  let g:tsuquyomi_disable_quickfix = 1
+  let g:vim_json_syntax_conceal = 0
+  autocmd FileType setlocal completeopt+=noselect,menu,preview
+  set completeopt+=noselect,menu,preview
+  " if !exists('g:neocomplete#force_omni_input_patterns')
+  "   let g:neocomplete#force_omni_input_patterns = {}
+  " endif
+  " let g:neocomplete#force_omni_input_patterns.typescript = '[^. *\t]\.\w*\|\h\w*::'
 
-" w!! to sudo & write a file
-cmap w!! %!sudo tee >/dev/null %
+"}}}
 
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
+" Emmet customization -------------------------------------------------------{{{
+" Enable Emmet in all modes
+" Remapping <C-y>, just doesn't cut it.
+  function! s:expand_html_tab()
+" try to determine if we're within quotes or tags.
+" if so, assume we're in an emmet fill area.
+   let line = getline('.')
+   if col('.') < len(line)
+     let line = matchstr(line, '[">][^<"]*\%'.col('.').'c[^>"]*[<"]')
+     if len(line) >= 2
+        return "\<C-n>"
+     endif
+   endif
+" expand anything emmet thinks is expandable.
+  if emmet#isExpandable()
+    return "\<C-y>,"
+  endif
+" return a regular tab character
+  return "\<tab>"
+  endfunction
+  autocmd FileType html,markdown imap <buffer><expr><tab> <sid>expand_html_tab()
+  let g:user_emmet_mode='a'
+  let g:user_emmet_complete_tag = 1
+  let g:user_emmet_install_global = 0
+  autocmd FileType html,css EmmetInstall
+"}}}
 
-" sublime key bindings
-nmap <D-]> >>
-nmap <D-[> <<
-vmap <D-[> <gv
-vmap <D-]> >gv
+" unite ---------------------------------------------------------------------{{{
+let g:completor_node_binary="/usr/local/bin/node"
+let g:completor_python_binary = ' /usr/local/lib/python3.5/site-packages'
+let g:unite_data_directory='~/.nvim/.cache/unite'
+let g:unite_source_history_yank_enable=1
+let g:unite_prompt='» '
+let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup','--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'lib']
 
-" eggcache vim
-nnoremap ; :
-:command W w
-:command WQ wq
-:command Wq wq
-:command Q q
-:command Qa qa
-:command QA qa
-
-" for macvim
-if has("gui_running")
-    set go=aAce  " remove toolbar
-    "set transparency=30
-    set guifont=Monaco:h13
-    set showtabline=2
-    set columns=140
-    set lines=40
-    noremap <D-M-Left> :tabprevious<cr>
-    noremap <D-M-Right> :tabnext<cr>
-    map <D-1> 1gt
-    map <D-2> 2gt
-    map <D-3> 3gt
-    map <D-4> 4gt
-    map <D-5> 5gt
-    map <D-6> 6gt
-    map <D-7> 7gt
-    map <D-8> 8gt
-    map <D-9> 9gt
-    map <D-0> :tablast<CR>
-endif
-
-"tecla leader ,
-let mapleader = "," 
-
-"shell con control-z
-map <C-Z> :shell<cr>
-
-"Saco modo reemplazo
-imap <Insert> <Nop>
-"duplicar linea
-imap <C-d> <C-O>Y<C-O>P
-"doble home a primera palabra
-map <Home><Home> ^
-imap <Home><Home> <C-O>^
-"cambiar a modo normal con ctrl-c mover cursos a la derecha
-imap jj <Esc><Right>
-imap <C-c> <Esc><Right>
-
-"********* tabs ****************
-map tn :tabn<CR>
-map tp :tabp<CR>
-map tm :tabm<CR>
-map tt :tabnew<CR>
-
-" borra los espacios extras al final de las lineas (guarda antes la posicion y la restablece luego)
-autocmd BufWritePre  *.{cpp,h,c,py,php}  call StripTrailingWhite()
-function! StripTrailingWhite()
-  let s:bufwritepre_currline = line('.')
-  let s:bufwritepre_currcol = col('.')
-  silent! undojoin
-  silent! %s/\s\+$//
-  call cursor(s:bufwritepre_currline, s:bufwritepre_currcol)
-  silent! TlistUpdate
-endfunction
-
-"UltiSnips
-let g:UltiSnipsExpandTrigger       = "<tab>"
-let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-let g:UltiSnipsSnippetDirectories  = ["snips"]
-
-function! g:UltiSnips_Complete()
-    call UltiSnips#ExpandSnippet()
-    if g:ulti_expand_res == 0
-        if pumvisible()
-            return "\<C-n>"
-        else
-            call UltiSnips#JumpForwards()
-            if g:ulti_jump_forwards_res == 0
-               return "\<TAB>"
-            endif
-        endif
-    endif
-    return ""
-endfunction
-
-au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-
-"autocompletado
-" avanzar en la lista de snipt para abajo y para arriba
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:ycm_key_invoke_completion = '<C-j>'
-
-set completeopt-=preview
-" let g:ycm_auto_trigger = 0 
-let g:ycm_autoclose_preview_window_after_completion = 1
-
-" color a la lista de youcompleteme
-highlight Pmenu ctermfg=15 ctermbg=0 guifg=#ffffff guibg=#000000
-
-" barra de estado line
-set noshowmode
-let g:airline_theme='badwolf'
-" let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''Session guardada'', ''Sin session'')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
-" mostar si esta guardada o no la session de vim
-let g:airline_section_y='%{ObsessionStatus("Session", "Sin Session", "Sin Session")}'
-
-"=====================
-
-set noerrorbells visualbell t_vb= " don't beep
-
-" panel de functiones y variables
-let g:tagbar_type_php  = {
-  \ 'ctagstype' : 'php',
-  \ 'kinds'     : [
-      \ 'i:interfaces',
-      \ 'c:classes',
-      \ 'd:constant definitions',
-      \ 'f:functions',
-      \ 'j:javascript functions:1'
-  \ ]
-\ }
-
-"Ack
-let g:ackprg="ack -s -H --nocolor --nogroup --column --ignore-dir=build --ignore-dir=node_modules --ignore-dir=.idea --ignore-dir=.happypack"
-nmap <leader>a :tab split<CR>:Ack ""<left>
-nmap <leader>A :tab split<CR>:Ack <C-r><C-w><C-R>
-
-" ctrlp
-"set wildignore+=*/tmp/*,*.so,*.o,*.a,*.obj,*.swp,*.zip,*.pyc,*.pyo,*.class,.DS_Store,*/node_modules/*,*/vendor/*,*/bower_components/*,*/cache/* " MacOSX/Linux
-"let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
-
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
-let g:ctrlp_user_command = 'find %s -type f | grep -v "`cat .gitignore`"'
-
-
-" Unite
-" let g:unite_source_history_yank_enable = 1
-" call unite#filters#matcher_default#use(['matcher_fuzzy'])
-" nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
-" nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
-" nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-" nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
-" nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-" nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/async<CR>
+nnoremap <silent> <leader>c :Unite -auto-resize -start-insert -direction=botright colorscheme<CR>
+nnoremap <silent> <leader>u :Unite neobundle/update<CR>
 
 " Custom mappings for the unite buffer
-" autocmd FileType unite call s:unite_settings()
-" function! s:unite_settings()
-  " let b:SuperTabDisabled=1
-  " imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  " imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-" endfunction
+autocmd FileType unite call s:unite_settings()
 
-" === Unite === 
+function! s:unite_settings() "{{{
+  " Enable navigation with control-j and control-k in insert mode
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+endfunction "}}}
 
-" call unite#filters#matcher_default#use(['matcher_fuzzy'])
-" call unite#filters#sorter_default#use(['sorter_rank'])
+" Git from unite...ERMERGERD ------------------------------------------------{{{
+let g:unite_source_menu_menus = {} " Useful when building interfaces at appropriate places
+let g:unite_source_menu_menus.git = {
+  \ 'description' : 'Fugitive interface',
+  \}
+let g:unite_source_menu_menus.git.command_candidates = [
+  \[' git status', 'Gstatus'],
+  \[' git diff', 'Gvdiff'],
+  \[' git commit', 'Gcommit'],
+  \[' git stage/add', 'Gwrite'],
+  \[' git checkout', 'Gread'],
+  \[' git rm', 'Gremove'],
+  \[' git cd', 'Gcd'],
+  \[' git push', 'exe "Git! push " input("remote/branch: ")'],
+  \[' git pull', 'exe "Git! pull " input("remote/branch: ")'],
+  \[' git pull rebase', 'exe "Git! pull --rebase " input("branch: ")'],
+  \[' git checkout branch', 'exe "Git! checkout " input("branch: ")'],
+  \[' git fetch', 'Gfetch'],
+  \[' git merge', 'Gmerge'],
+  \[' git browse', 'Gbrowse'],
+  \[' git head', 'Gedit HEAD^'],
+  \[' git parent', 'edit %:h'],
+  \[' git log commit buffers', 'Glog --'],
+  \[' git log current file', 'Glog -- %'],
+  \[' git log last n commits', 'exe "Glog -" input("num: ")'],
+  \[' git log first n commits', 'exe "Glog --reverse -" input("num: ")'],
+  \[' git log until date', 'exe "Glog --until=" input("day: ")'],
+  \[' git log grep commits',  'exe "Glog --grep= " input("string: ")'],
+  \[' git log pickaxe',  'exe "Glog -S" input("string: ")'],
+  \[' git index', 'exe "Gedit " input("branchname\:filename: ")'],
+  \[' git mv', 'exe "Gmove " input("destination: ")'],
+  \[' git grep',  'exe "Ggrep " input("string: ")'],
+  \[' git prompt', 'exe "Git! " input("command: ")'],
+  \] " Append ' --' after log to get commit info commit buffers
+nnoremap <silent> <Leader>g :Unite -direction=botright -silent -buffer-name=git -start-insert menu:git<CR>
+"}}}
+"}}}
 
-" let g:unite_source_history_yank_enable = 1
-" let g:unite_force_overwrite_statusline = 0
+" Navigate between vim buffers and tmux panels ------------------------------{{{
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
+nnoremap <silent> <C-;> :TmuxNavigatePrevious<cr>
+"}}}
 
-" call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
-  " \ 'ignore_pattern', join([
-  " \ '\.tmp/',
-  " \ '\.svn/',
-  " \ '\cache/',
-  " \ '\base/',
-  " \ '\log/',
-  " \ '\vendor/',
-  " \ '*.so/',
-  " \ '*.o/',
-  " \ '*.swp/',
-  " \ ], '\|'))
+" vim-airline ---------------------------------------------------------------{{{
+let g:airline#extensions#tabline#enabled = 1
+set hidden
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme='oceanicnext'
+" let g:airline_theme='base16_solarized'
+cnoreabbrev <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? 'Sayonara' : 'x'
+nmap <leader>t :term<cr>
+nmap <leader>, :bnext<CR>
+nmap <leader>. :bprevious<CR>
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h13
+"}}}
 
-" nnoremap [unite] <Nop>
-" nmap <space> [unite]
+" Linting -------------------------------------------------------------------{{{
+  let g:syntastic_javascript_checkers = ['flow']
+  let g:syntastic_typescript_checkers = ['tsuquyomi', 'tslint']
+  let g:syntastic_typescript_tsc_args = '--target ES5 --noEmit'
+  function! JscsFix()
+      let l:winview = winsaveview()
+      % ! jscs -x
+      call winrestview(l:winview)
+  endfunction
+  command JscsFix :call JscsFix()
+  noremap <leader>j :JscsFix<CR>
+"}}}
+"
+autocmd FileType css setl omnifunc=csscomplete#CompleteCSS
 
-" General purpose
-"nnoremap [unite]<space> :Unite -no-split -start-insert source<cr>
+" Propios -------------------------------------------------------------------{{{
+  nmap <F3> :NERDTreeFind<cr>
+  nmap <F5> :set wrap!<CR>
 
-" grep
-" nnoremap [unite]g :Unite -buffer-name=Buscador -toggle -start-insert -direction=botright -winheight=10 -default-action=splitdrop grep:.<cr>
+  autocmd VimEnter * AirlineToggleWhitespace
 
-" call unite#custom#source('file_rec/async','sorters','sorter_rank')
-" replacing unite with ctrl-p
-" nnoremap <silent> <C-p> :Unite -start-insert -buffer-name=files -winheight=10 file_rec/async<cr>
+  set ignorecase
+  set nowrap
+
+  let g:nerdtree_tabs_open_on_console_startup=2
+  let g:nerdtree_tabs_autofind=1
+
+  " guardar sesion
+  nnoremap <leader>s :ToggleWorkspace<CR>
+
+  map <Home><Home> ^
+  imap <Home><Home> <C-O>^
+
+  "shell con control-z
+  map <C-Z> :shell<cr>
+
+  " w!! to sudo & write a file
+  cmap w!! %!sudo tee >/dev/null %
+
+  "cambiar a modo normal con 
+  imap jj <Esc><Right>
+
+  nmap tn :bnext<CR>
+  nmap tp :bprevious<CR>
+
+  " ignorar todo estos directorios y archivos
+  " let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$', 'node_modules', 'bower_components', 'bin', 'vendor', 'cache', 'logs', 'AppCache.php', 'autoload.php', 'bootstrap.php.cache', 'check.php', 'console', 'phpunit.xml.dist', 'SymfonyRequirements.php', 'README.md', 'composer.phar', 'composer.lock']
+  
+  noremap H <HOME>
+  noremap HH ^
+
+  let g:gitgutter_realtime = 0
+  let g:gitgutter_eager = 0
+
+  let g:used_javascript_libs = 'react'
+
+
+  "gcc comentar gc comentar varias lineas
+  " buscar y reemplazar global
+  ":%S/nombre{,s}/reemplazo{,s}/g
+  ":%S/nombre{,s}/reemplazo{,s}/gc interactivo
+"}}}
