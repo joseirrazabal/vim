@@ -17,7 +17,6 @@
 
 " Required:
     set runtimepath+=~/.vim/repos/github.com/Shougo/dein.vim/
-    " set runtimepath+=~/Github/deoplete-angular/
 
 " Required:
   call dein#begin(expand('~/.vim'))
@@ -28,6 +27,10 @@
   call dein#add('Shougo/dein.vim')
   call dein#add('haya14busa/dein-command.vim')
 
+  call dein#add('kshenoy/vim-signature') " marca al lado de los numeros 
+  call dein#add('majutsushi/tagbar') " tag con f4 
+  call dein#add('benmills/vimux') " ejecuta desde vim a una terminal tmux
+  call dein#add('digitaltoad/vim-jade') " node jade template
   call dein#add('jistr/vim-nerdtree-tabs') " permite abrir ubicacion del archivo en el nerdtree
   call dein#add('thaerkh/vim-workspace') " guarda session
   call dein#add('tpope/vim-abolish')
@@ -67,7 +70,7 @@
   call dein#add('Quramy/tsuquyomi')
 
   call dein#add('heavenshell/vim-flood')
-  " call dein#add('mhartington/oceanic-next')
+  call dein#add('mhartington/oceanic-next')
   " call dein#add('Yggdroot/indentLine') "muestra el | en la identacion
   call dein#add('Raimondi/delimitMate', {'on_ft': ['javascript', 'typescript', 'css', 'scss']})
   call dein#add('valloric/MatchTagAlways', {'on_ft': 'html'})
@@ -77,8 +80,15 @@
   call dein#add('Xuyuanp/nerdtree-git-plugin')
   " call dein#add('https://github.com/jaxbot/github-issues.vim')
 
+	" abre buffer para modificar seleccion
+  call dein#add('chrisbra/NrrwRgn')
+	" modifica texto ej cs"' cambia " por '
+  call dein#add('tpope/vim-surround')
+	" repetir comandos
   call dein#add('tpope/vim-repeat')
+	" analiza la sintaxis 
   call dein#add('scrooloose/syntastic')
+
   call dein#add('editorconfig/editorconfig-vim')
   call dein#add('scrooloose/nerdtree')
   call dein#add('AndrewRadev/switch.vim')
@@ -86,7 +96,6 @@
   call dein#add('tmux-plugins/vim-tmux')
   call dein#add('tmux-plugins/vim-tmux-focus-events')
   call dein#add('vim-airline/vim-airline')
-  call dein#add('tpope/vim-surround')
   call dein#add('tomtom/tcomment_vim')
   call dein#add('mattn/emmet-vim', {'on_ft': 'html'})
   call dein#add('Chiel92/vim-autoformat')
@@ -99,13 +108,16 @@
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
   " call dein#add('Shougo/neocomplete.vim')
   " call dein#add('maralla/completor.vim')
-  call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
+
+	"solo para neovim ?
+  "call dein#add('Shougo/deoplete.nvim')
   call dein#add('ternjs/tern_for_vim', {'build': 'npm install'})
   call dein#add('Valloric/YouCompleteMe', {'build': './install.py'})
+
   call dein#add('Shougo/neco-vim', {'on_ft': 'vim'})
   call dein#add('Shougo/neoinclude.vim')
   call dein#add('ujihisa/neco-look')
-  call dein#add('zchee/deoplete-jedi')
+
   call dein#add('Shougo/neosnippet.vim')
   call dein#add('Shougo/neosnippet-snippets')
   call dein#add('honza/vim-snippets')
@@ -117,7 +129,6 @@
   call dein#add('rhysd/github-complete.vim')
   call dein#add('junegunn/goyo.vim')
   call dein#add('vim-scripts/SyntaxRange')
-  call dein#add('zchee/deoplete-go', {'build': 'make'},{'on_ft': 'go'})
   call dein#add('rhysd/nyaovim-popup-tooltip')
   call dein#add('jacoborus/tender.vim')
   call dein#add('ryanoasis/vim-devicons')
@@ -166,8 +177,8 @@
   autocmd InsertEnter * let save_cwd = getcwd() | set autochdir
   autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
   let g:indentLine_char='│'
-  let g:indentLine_enabled=0
   " enable deoplete
+	"let g:deoplete#enable_at_startup = 1
 
   let g:neocomplete#enable_at_startup = 1
   let g:unite_source_codesearch_command = '$HOME/bin/csearch'
@@ -200,8 +211,7 @@
   noremap <leader>TM :TableModeToggle<CR>
 " exit insert, dd line, enter insert
   inoremap <c-d> <esc>ddi
-  noremap H <HOME>
-  noremap HH ^
+  noremap H ^
   noremap L g_
   noremap J 5j
   noremap K 5k
@@ -495,9 +505,8 @@ set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h13
 "}}}
 
 " Linting -------------------------------------------------------------------{{{
-  let g:syntastic_javascript_checkers = ['flow']
-  let g:syntastic_typescript_checkers = ['tsuquyomi', 'tslint']
-  let g:syntastic_typescript_tsc_args = '--target ES5 --noEmit'
+	let g:syntastic_check_on_open=1
+	"let g:syntastic_javascript_checkers = ['eslint']
   function! JscsFix()
       let l:winview = winsaveview()
       % ! jscs -x
@@ -510,8 +519,12 @@ set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h13
 autocmd FileType css setl omnifunc=csscomplete#CompleteCSS
 
 " Propios -------------------------------------------------------------------{{{
+
   nmap <F3> :NERDTreeFind<cr>
+  nmap <F4> :TagbarToggle<CR>
   nmap <F5> :set wrap!<CR>
+  nnoremap <F6> :set invpaste paste?<CR>
+  set pastetoggle=<F6>
 
   autocmd VimEnter * AirlineToggleWhitespace
 
@@ -545,11 +558,20 @@ autocmd FileType css setl omnifunc=csscomplete#CompleteCSS
   noremap H <HOME>
   noremap HH ^
 
-  let g:gitgutter_realtime = 0
-  let g:gitgutter_eager = 0
+	" separar seleccion para edicion en otro buffer
+  " por defecto selecciono y con ,rn abre en un buffer el texto seleccionado para modificar, al guardar estos cambios modifica el original
+	" imap <Leader>nr :NRM!
+	" aumenta el tamaño del buffer creado cuando se apreta leader space
+	let g:nrrw_rgn_incr = 40
 
   let g:used_javascript_libs = 'react'
 
+  " abre tmux abajo y ejecuta 
+  map rp :VimuxRunCommand "ls -l"<cr>
+  map rx :VimuxCloseRunner<cr>
+
+  " con .. voy adonde se instancia la variable y guarda la marca para volver con 'a
+  nmap .. ma :TernDef<CR>
 
   "gcc comentar gc comentar varias lineas
   " buscar y reemplazar global
