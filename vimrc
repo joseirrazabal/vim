@@ -487,7 +487,9 @@ let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme='oceanicnext'
 " let g:airline_theme='base16_solarized'
-cnoreabbrev <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? 'Sayonara' : 'x'
+" con x cierro buffer, con x salgo de vim
+cnoreabbrev <expr> q getcmdtype() == ":" && getcmdline() == 'q' ? 'Sayonara' : 'q'
+cnoreabbrev <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? 'x' : 'x'
 nmap <leader>t :term<cr>
 nmap <leader>, :bnext<CR>
 nmap <leader>. :bprevious<CR>
@@ -551,6 +553,7 @@ autocmd FileType css setl omnifunc=csscomplete#CompleteCSS
 
   nmap tn :bnext<CR>
   nmap tp :bprevious<CR>
+  nmap tt :enew<CR>
 
   " ignorar todo estos directorios y archivos
   " let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$', 'node_modules', 'bower_components', 'bin', 'vendor', 'cache', 'logs', 'AppCache.php', 'autoload.php', 'bootstrap.php.cache', 'check.php', 'console', 'phpunit.xml.dist', 'SymfonyRequirements.php', 'README.md', 'composer.phar', 'composer.lock']
@@ -577,4 +580,5 @@ autocmd FileType css setl omnifunc=csscomplete#CompleteCSS
   " buscar y reemplazar global
   ":%S/nombre{,s}/reemplazo{,s}/g
   ":%S/nombre{,s}/reemplazo{,s}/gc interactivo
+ 
 "}}}
