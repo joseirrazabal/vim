@@ -27,39 +27,52 @@
   call dein#add('Shougo/dein.vim')
   call dein#add('haya14busa/dein-command.vim')
 
-  call dein#add('kshenoy/vim-signature') " marca al lado de los numeros 
-  call dein#add('majutsushi/tagbar') " tag con f4 
-  call dein#add('benmills/vimux') " ejecuta desde vim a una terminal tmux
-  call dein#add('digitaltoad/vim-jade') " node jade template
-  call dein#add('jistr/vim-nerdtree-tabs') " permite abrir ubicacion del archivo en el nerdtree
-  call dein#add('thaerkh/vim-workspace') " guarda session
+  " marca al lado de los numeros 
+  call dein#add('kshenoy/vim-signature')
+  " tag con f4 
+  call dein#add('majutsushi/tagbar')
+  " ejecuta desde vim a una terminal tmux
+  call dein#add('benmills/vimux') 
+  " node jade template
+  call dein#add('digitaltoad/vim-jade')
+  " permite abrir ubicacion del archivo en el nerdtree
+  call dein#add('jistr/vim-nerdtree-tabs')
+  " guarda session
+  call dein#add('thaerkh/vim-workspace')
+  " reemplazar texto match case e interactivo
   call dein#add('tpope/vim-abolish')
 
-  call dein#add('airblade/vim-gitgutter') " muestra + o - al lado de numeros solo git
-  "call dein#add('mhinz/vim-signify') " muestra + o - al lado de numero s(para todos svn, git, etc )
-  
+  " muestra + o - al lado de numeros solo git
+  call dein#add('airblade/vim-gitgutter')
+  " muestra + o - al lado de numero s(para todos svn, git, etc )
+  "call dein#add('mhinz/vim-signify')
+ 
+
+  call dein#add('Chiel92/vim-autoformat')
+
+	" analiza la sintaxis 
+  call dein#add('scrooloose/syntastic')
+
   " syntax
   call dein#add('flazz/vim-colorschemes')
   call dein#add('othree/javascript-libraries-syntax.vim')
-
-
+  call dein#add('sheerun/vim-polyglot')
+  call dein#add('bigfish/vim-js-context-coloring')
+ 
   " call dein#add('othree/yajs.vim', {'on_ft': 'javascript'})
   " call dein#add('othree/es.next.syntax.vim', {'on_ft': 'javascript'}) "syntax for ecma require yajs
   " call dein#add('othree/jsdoc-syntax.vim', {'on_ft':['javascript', 'typescript']}) " comment en js
   " call dein#add('pangloss/vim-javascript')
   " call dein#add('mxw/vim-jsx')
-
-
-  call dein#add('sheerun/vim-polyglot')
-  call dein#add('bigfish/vim-js-context-coloring')
-
- 
-  " call dein#add('crusoexia/vim-monokai')
   " call dein#add('Quramy/vim-js-pretty-template')
   " call dein#add('othree/html5.vim')
   " call dein#add('1995eaton/vim-better-javascript-completion', {'on_ft': ['javascript']})
   " call dein#add('kchmck/vim-coffee-script', {'on_ft': 'coffee'})
   " call dein#add('hail2u/vim-css3-syntax', {'on_ft':['css','scss']})
+
+  " esquema de color
+  call dein#add('mhartington/oceanic-next')
+  " call dein#add('crusoexia/vim-monokai')
  
   call dein#add('elzr/vim-json', {'on_ft': 'json'})
   call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
@@ -68,15 +81,18 @@
   call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
   call dein#add('HerringtonDarkholme/yats.vim')
   call dein#add('Quramy/tsuquyomi')
-
   call dein#add('heavenshell/vim-flood')
-  call dein#add('mhartington/oceanic-next')
+ 
   " call dein#add('Yggdroot/indentLine') "muestra el | en la identacion
   call dein#add('Raimondi/delimitMate', {'on_ft': ['javascript', 'typescript', 'css', 'scss']})
+
   call dein#add('valloric/MatchTagAlways', {'on_ft': 'html'})
 
+  " git en vim
   call dein#add('tpope/vim-fugitive')
+  " + y - de git al lado de los numeros de linea
   call dein#add('jreybert/vimagit')
+  " nerdtree con indicaciones de git 
   call dein#add('Xuyuanp/nerdtree-git-plugin')
   " call dein#add('https://github.com/jaxbot/github-issues.vim')
 
@@ -86,21 +102,28 @@
   call dein#add('tpope/vim-surround')
 	" repetir comandos
   call dein#add('tpope/vim-repeat')
-	" analiza la sintaxis 
-  call dein#add('scrooloose/syntastic')
-
+  " captura configuracion a usar en el proyecto de un archivo
   call dein#add('editorconfig/editorconfig-vim')
+  " arbol de directorios
   call dein#add('scrooloose/nerdtree')
+
   call dein#add('AndrewRadev/switch.vim')
+
   call dein#add('christoomey/vim-tmux-navigator')
   call dein#add('tmux-plugins/vim-tmux')
   call dein#add('tmux-plugins/vim-tmux-focus-events')
+
+  " idicadores footer y header de vim
   call dein#add('vim-airline/vim-airline')
+  " comentar rapido ej: gcc comenta posicion 
   call dein#add('tomtom/tcomment_vim')
+
   call dein#add('mattn/emmet-vim', {'on_ft': 'html'})
-  call dein#add('Chiel92/vim-autoformat')
   " call dein#add('ap/vim-css-color')
+
+  " reemplaza ctrl-p busqueda etc
   call dein#add('Shougo/unite.vim')
+
   call dein#add('Shougo/Denite.nvim')
   call dein#add('Shougo/unite-outline')
   call dein#add('ujihisa/unite-colorscheme')
