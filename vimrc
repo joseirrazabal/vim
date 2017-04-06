@@ -94,7 +94,14 @@
   call dein#add('jreybert/vimagit')
   " nerdtree con indicaciones de git 
   call dein#add('Xuyuanp/nerdtree-git-plugin')
+  " nerdtree con iconos
+  call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
+  " iconos en las barras de vim
+  call dein#add('ryanoasis/vim-devicons')
+ 
   " call dein#add('https://github.com/jaxbot/github-issues.vim')
+  " gist github
+  call dein#add('mattn/gist-vim')
 
 	" abre buffer para modificar seleccion
   call dein#add('chrisbra/NrrwRgn')
@@ -124,38 +131,43 @@
   " reemplaza ctrl-p busqueda etc
   call dein#add('Shougo/unite.vim')
 
-  call dein#add('Shougo/Denite.nvim')
+  " vim 8 o neovim
+  " call dein#add('Shougo/Denite.nvim')
+  " ver https://github.com/h1mesuke/unite-outline/wiki
   call dein#add('Shougo/unite-outline')
-  call dein#add('ujihisa/unite-colorscheme')
-  call dein#add('junkblocker/unite-codesearch')
+  " call dein#add('ujihisa/unite-colorscheme')
+  " call dein#add('junkblocker/unite-codesearch')
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
   " call dein#add('Shougo/neocomplete.vim')
   " call dein#add('maralla/completor.vim')
 
 	"solo para neovim ?
   "call dein#add('Shougo/deoplete.nvim')
+  " auto completar
   call dein#add('ternjs/tern_for_vim', {'build': 'npm install'})
   call dein#add('Valloric/YouCompleteMe', {'build': './install.py'})
 
-  call dein#add('Shougo/neco-vim', {'on_ft': 'vim'})
-  call dein#add('Shougo/neoinclude.vim')
-  call dein#add('ujihisa/neco-look')
+  " estod 3 no idea
+  " call dein#add('Shougo/neco-vim', {'on_ft': 'vim'})
+  " call dein#add('Shougo/neoinclude.vim')
+  " call dein#add('ujihisa/neco-look')
 
   call dein#add('Shougo/neosnippet.vim')
   call dein#add('Shougo/neosnippet-snippets')
   call dein#add('honza/vim-snippets')
-  call dein#add('matthewsimo/angular-vim-snippets')
+  " call dein#add('matthewsimo/angular-vim-snippets')
+  " salir de las pestañas buffer
   call dein#add('mhinz/vim-sayonara')
-  call dein#add('mattn/webapi-vim')
-  call dein#add('mattn/gist-vim')
+  " call dein#add('mattn/webapi-vim')
   call dein#add('terryma/vim-multiple-cursors')
-  call dein#add('rhysd/github-complete.vim')
+  " completa con datos de github
+  " call dein#add('rhysd/github-complete.vim')
+  " redimensionar vim ej :Goyo 500
   call dein#add('junegunn/goyo.vim')
-  call dein#add('vim-scripts/SyntaxRange')
-  call dein#add('rhysd/nyaovim-popup-tooltip')
-  call dein#add('jacoborus/tender.vim')
-  call dein#add('ryanoasis/vim-devicons')
-  call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
+  " ignora error en un intervalo puesto
+  " call dein#add('vim-scripts/SyntaxRange')
+  " color a 24 bit solo vim > 8 o neo vim, y colorscheme
+  " call dein#add('jacoborus/tender.vim')
   if dein#check_install()
     call dein#install()
   endif
@@ -204,7 +216,7 @@
 	"let g:deoplete#enable_at_startup = 1
 
   let g:neocomplete#enable_at_startup = 1
-  let g:unite_source_codesearch_command = '$HOME/bin/csearch'
+  "let g:unite_source_codesearch_command = '$HOME/bin/csearch'
   let g:table_mode_corner="|"
 
 " }}}
@@ -440,11 +452,17 @@ let g:completor_python_binary = ' /usr/local/lib/python3.5/site-packages'
 let g:unite_data_directory='~/.nvim/.cache/unite'
 let g:unite_source_history_yank_enable=1
 let g:unite_prompt='» '
-let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup','--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'lib']
+let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup','--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'lib', '--ignore', 'node_modules']
+let g:unite_source_grep_command = 'ag'
+let g:unite_source_grep_default_opts =
+                  \ '-i --vimgrep --hidden --ignore ' .
+                  \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+let g:unite_source_grep_recursive_opt = ''
 
 nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/async<CR>
-nnoremap <silent> <leader>c :Unite -auto-resize -start-insert -direction=botright colorscheme<CR>
-nnoremap <silent> <leader>u :Unite neobundle/update<CR>
+nnoremap <silent> <leader>a :Unite -auto-resize -start-insert -direction=botright grep<CR>
+" nnoremap <silent> <leader>c :Unite -auto-resize -start-insert -direction=botright colorscheme<CR>
+" nnoremap <silent> <leader>u :Unite neobundle/update<CR>
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
@@ -531,7 +549,7 @@ set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h13
 
 " Linting -------------------------------------------------------------------{{{
 	let g:syntastic_check_on_open=1
-	"let g:syntastic_javascript_checkers = ['eslint']
+	let g:syntastic_javascript_checkers = ['eslint']
   function! JscsFix()
       let l:winview = winsaveview()
       % ! jscs -x
