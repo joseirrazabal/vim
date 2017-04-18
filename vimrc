@@ -59,16 +59,16 @@
   call dein#add('sheerun/vim-polyglot')
   call dein#add('bigfish/vim-js-context-coloring')
  
-  " call dein#add('othree/yajs.vim', {'on_ft': 'javascript'})
-  " call dein#add('othree/es.next.syntax.vim', {'on_ft': 'javascript'}) "syntax for ecma require yajs
-  " call dein#add('othree/jsdoc-syntax.vim', {'on_ft':['javascript', 'typescript']}) " comment en js
-  " call dein#add('pangloss/vim-javascript')
-  " call dein#add('mxw/vim-jsx')
-  " call dein#add('Quramy/vim-js-pretty-template')
-  " call dein#add('othree/html5.vim')
-  " call dein#add('1995eaton/vim-better-javascript-completion', {'on_ft': ['javascript']})
-  " call dein#add('kchmck/vim-coffee-script', {'on_ft': 'coffee'})
-  " call dein#add('hail2u/vim-css3-syntax', {'on_ft':['css','scss']})
+  call dein#add('othree/yajs.vim', {'on_ft': 'javascript'})
+  call dein#add('othree/es.next.syntax.vim', {'on_ft': 'javascript'}) "syntax for ecma require yajs
+  call dein#add('othree/jsdoc-syntax.vim', {'on_ft':['javascript', 'typescript']}) " comment en js
+  call dein#add('pangloss/vim-javascript')
+  call dein#add('mxw/vim-jsx')
+  call dein#add('Quramy/vim-js-pretty-template')
+  call dein#add('othree/html5.vim')
+  call dein#add('1995eaton/vim-better-javascript-completion', {'on_ft': ['javascript']})
+  call dein#add('kchmck/vim-coffee-script', {'on_ft': 'coffee'})
+  call dein#add('hail2u/vim-css3-syntax', {'on_ft':['css','scss']})
 
   " esquema de color
   call dein#add('mhartington/oceanic-next')
