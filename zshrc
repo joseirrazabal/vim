@@ -278,12 +278,12 @@ alias ev='vim ~/.vimrc'
 alias et='vim ~/.tmux.conf'
 alias ez='vim ~/.zshrc'
 
-alias sl=ls
-alias ls='ls -G'        # Compact view, show colors
-alias la='ls -AF'       # Compact view, show hidden
-alias ll='ls -al'
-alias l='ls -a'
-alias l1='ls -1'
+alias sl='ls --color=auto'
+alias ls='ls -G --color=auto'        # Compact view, show colors
+alias la='ls -AF --color=auto'       # Compact view, show hidden
+alias ll='ls -al --color=auto'
+alias l='ls -a --color=auto'
+alias l1='ls -1 --color=auto'
 
 zstyle ':completion:*' special-dirs true
 
