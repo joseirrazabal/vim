@@ -615,7 +615,10 @@ autocmd FileType css setl omnifunc=csscomplete#CompleteCSS
   map rx :VimuxCloseRunner<cr>
 
   " con .. voy adonde se instancia la variable y guarda la marca para volver con 'a
-  nmap .. ma :TernDef<CR>
+  nmap .. ma:TernDef<CR>
+
+  " con ff voy a archivo como con gf
+  nmap ff $bbgf<CR>
 
   "gcc comentar gc comentar varias lineas
   " buscar y reemplazar global
