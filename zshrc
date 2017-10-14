@@ -43,7 +43,7 @@ POWERLEVEL9K_NODE_VERSION_VISUAL_IDENTIFIER_COLOR="white"
 # POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir)
 # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status nvm node_version)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs nvm node_version)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs node_version)
 
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
@@ -280,12 +280,38 @@ alias ez='vim ~/.zshrc'
 
 alias sl='ls --color=auto'
 alias ls='ls -G --color=auto'        # Compact view, show colors
-alias la='ls -AF --color=auto'       # Compact view, show hidden
-alias ll='ls -al --color=auto'
+alias ll='exa -l'
+alias la='exa -la'
+# alias la='ls -AF --color=auto'       # Compact view, show hidden
+# alias ll='ls -al --color=auto'
 alias l='ls -a --color=auto'
 alias l1='ls -1 --color=auto'
+
+alias en='. /home/jose/env.sh '
 
 zstyle ':completion:*' special-dirs true
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# place this after nvm initialization!
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
