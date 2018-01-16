@@ -1,18 +1,40 @@
 [[ $TMUX = "" ]] && export TERM="xterm-256color"
 
+source ~/antigen.zsh
+
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+antigen bundle webyneter/docker-aliases.git
+antigen bundle sudo
+antigen bundle git
+antigen bundle tmux 
+antigen bundle zsh-autosuggestions
+antigen bundle pip
+antigen bundle lein
+antigen bundle command-not-found
+antigen bundle alexrochas/zsh-extract
+
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+# Load the theme.
+# antigen theme robbyrussell/oh-my-zsh themes/agnoster
+WERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k
+
+antigen theme bhilburn/powerlevel9k powerlevel9k
+
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/jose/.oh-my-zsh
+# export ZSH=/home/jose/.oh-my-zsh
 
 # ZSH_TMUX_AUTOSTART=true
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="bira"
-ZSH_THEME="powerlevel9k/powerlevel9k"
+# ZSH_THEME="powerlevel9k/powerlevel9k"
 
 POWERLEVEL9K_MODE='awesome-fontconfig'
 POWERLEVEL9K_CONTEXT_DEFAULT_BACKGROUND="red"
@@ -49,6 +71,8 @@ POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 # POWERLEVEL9K_DISABLE_RPROMPT=true
 
+# Tell Antigen that you're done.
+antigen apply
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -93,9 +117,9 @@ POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(sudo git tmux zsh-autosuggestions)
+# plugins=(sudo git tmux zsh-autosuggestions)
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -280,10 +304,10 @@ alias ez='vim ~/.zshrc'
 
 alias sl='ls --color=auto'
 alias ls='ls -G --color=auto'        # Compact view, show colors
-alias ll='exa -l'
-alias la='exa -la'
-# alias la='ls -AF --color=auto'       # Compact view, show hidden
-# alias ll='ls -al --color=auto'
+# alias ll='exa -l'
+# alias la='exa -la'
+alias la='ls -AF --color=auto'       # Compact view, show hidden
+alias ll='ls -al --color=auto'
 alias l='ls -a --color=auto'
 alias l1='ls -1 --color=auto'
 
