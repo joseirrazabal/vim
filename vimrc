@@ -27,6 +27,8 @@
   call dein#add('Shougo/dein.vim')
   call dein#add('haya14busa/dein-command.vim')
 
+  call dein#add('prettier/vim-prettier', { 'do': 'yarn install' })
+
   " marca al lado de los numeros 
   call dein#add('kshenoy/vim-signature')
   " tag con f4 
@@ -242,7 +244,7 @@
   nmap cp :let @+ = expand("%") <cr>
 
 " ,f to format code, requires formatters: read the docs
-  noremap <leader>f :Autoformat<CR>
+  " noremap <leader>f :Autoformat<CR>
   noremap <leader>TM :TableModeToggle<CR>
 " exit insert, dd line, enter insert
   inoremap <c-d> <esc>ddi
@@ -619,6 +621,8 @@ autocmd FileType css setl omnifunc=csscomplete#CompleteCSS
 
   " con ff voy a archivo como con gf
   nmap ff $bbgf<CR>
+
+	nmap <leader>f :Prettier<CR>
 
   "gcc comentar gc comentar varias lineas
   " buscar y reemplazar global
