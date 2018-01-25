@@ -1,6 +1,6 @@
 [[ $TMUX = "" ]] && export TERM="xterm-256color"
 
-source ~/antigen.zsh
+source /usr/share/zsh-antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -206,6 +206,7 @@ alias ls='ls -G --color=auto'        # Compact view, show colors
 alias la='ls -AF --color=auto'       # Compact view, show hidden
 alias ll='ls -al --color=auto'
 
+alias touchpad='sh ~/.configuracion/touch.sh'
 # alias en='. /home/jose/env.sh '
 
 nvm use default
