@@ -1,7 +1,6 @@
 [[ $TMUX = "" ]] && export TERM="xterm-256color"
 
-source ~/antigen.zsh
-# source /usr/share/zsh-antigen/antigen.zsh
+source ~/.configuracion/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
