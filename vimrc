@@ -564,6 +564,9 @@ set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h13
 autocmd FileType css setl omnifunc=csscomplete#CompleteCSS
 
 " Propios -------------------------------------------------------------------{{{
+  " copiar y pegar 
+  vmap <C-c> :!xclip -f -sel clip<CR>
+  map <C-p> :r!xclip -o -sel clip
 
   nmap <F3> :NERDTreeFind<cr>
   nmap <F4> :TagbarToggle<CR>
