@@ -1,5 +1,5 @@
 [user]
-	email = joseirrazabal@aleani.com.ar
+	email = joseirrazabal@gmail.com
 	name = jirrazabal
 [core]
 	editor = vim
@@ -51,7 +51,7 @@
 	cad = commit -a --amend
 	ced = commit --allow-empty --amend
 	#############
-	d = diff
+	d = difftool
 	dc = diff --cached
 	dl = difftool
 	dlc = difftool --cached
