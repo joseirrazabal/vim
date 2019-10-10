@@ -154,6 +154,8 @@
   " call dein#add('Shougo/neoinclude.vim')
   " call dein#add('ujihisa/neco-look')
 
+  call dein#add('dense-analysis/ale')
+
   call dein#add('Shougo/neosnippet.vim')
   call dein#add('Shougo/neosnippet-snippets')
   call dein#add('honza/vim-snippets')
