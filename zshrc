@@ -214,6 +214,9 @@ alias ll='ls -ahlF --time-style=long-iso'
 alias la='ls -A'
 alias ~='cd $HOME'
 
+#stern para hacer tail de pods
+alias stern=stern_linux_amd64
+
 alias x=extract
 # aliases for Tmux
 alias tmux='tmux -2'
@@ -308,7 +311,8 @@ if [ -f ~/.aliases.zsh ]; then
   . ~/.aliases.zsh
 fi
 
+CONFIG_BIN=$HOME/.configuracion/bin
 LOCAL_BIN=$HOME/.local/bin
 if [ -d $LOCAL_BIN ]; then
-  export PATH=$PATH:$LOCAL_BIN
+  export PATH=$PATH:$LOCAL_BIN:$CONFIG_BIN
 fi
