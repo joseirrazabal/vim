@@ -627,7 +627,11 @@ autocmd FileType css setl omnifunc=csscomplete#CompleteCSS
   " con ff voy a archivo como con gf
   nmap ff $bbgf<CR>
 
-	nmap <leader>f :Prettier<CR>
+  if filereadable(expand(".prettierrc"))
+    nmap <leader>f :Prettier<CR>
+  else 
+    nmap <leader>f :Autoformat<CR>
+  endif
 
   "gcc comentar gc comentar varias lineas
   " buscar y reemplazar global

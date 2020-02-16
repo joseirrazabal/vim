@@ -109,7 +109,7 @@ function compress() {
 }
 
 # ANTIGEN
-antigen_source="$HOME/antigen.zsh"
+antigen_source="$HOME/.antigen.zsh"
 
 # CONFIG POWER FONT
 POWERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k
@@ -280,6 +280,8 @@ if (( $+commands[kubectl] )) ; then
 
   # Get commands
   alias kg='kubectl get'
+  alias krm='kubectl delete'
+  alias ka='kubectl apply -f'
   alias kgp='kubectl get pods'
   alias kgns='kubectl get namespaces'
   alias kgall='kubectl get ingress,service,deployment,pod'
