@@ -146,7 +146,7 @@
 	"solo para neovim ?
   "call dein#add('Shougo/deoplete.nvim')
   " auto completar
-  call dein#add('ternjs/tern_for_vim', {'build': 'npm install'})
+  " call dein#add('ternjs/tern_for_vim', {'build': 'npm install'})
   call dein#add('Valloric/YouCompleteMe', {'build': './install.py'})
 
   " estod 3 no idea

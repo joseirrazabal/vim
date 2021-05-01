@@ -318,3 +318,5 @@ LOCAL_BIN=$HOME/.local/bin
 if [ -d $LOCAL_BIN ]; then
   export PATH=$PATH:$LOCAL_BIN:$CONFIG_BIN
 fi
+
+export PATH=$PATH:/home/user/.linuxbrew/bin:/home/user/.linuxbrew/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
