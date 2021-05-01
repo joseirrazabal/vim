@@ -5,12 +5,14 @@ sudo add-apt-repository ppa:jonathonf/vim -y
 sudo apt update && sudo apt install tilda curl git tmux vim zsh build-essential cmake openvpn libssl-dev silversearcher-ag xclip zsh-antigen python-dev -y
 
 #fonts
-git clone https://github.com/ryanoasis/nerd-fonts.git
-cd nerd-fonts
-sudo ./install.sh
+#git clone https://github.com/ryanoasis/nerd-fonts.git
+#cd nerd-fonts
+#sudo ./install.sh
+mkdir -p ~/.local/share/fonts
+cd ~/.local/share/fonts && curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
 
-cd ..
-rm -rf nerd-fonts
+#cd ..
+#rm -rf nerd-fonts
 
 # sudo apt install fonts-powerline -y
 #
