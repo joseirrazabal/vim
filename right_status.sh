@@ -1,67 +1,54 @@
 #!/bin/bash
 
-# apt install acpi
-# si no funciona corregir ubicacion /sys/class/power_suply ACAD y BAT1
-function battery_meter() {
+# Función para medir el estado de la batería
+battery_meter() {
+    if [ -d /sys/class/power_supply/BAT1 ]; then
+        local capacity=$(cat /sys/class/power_supply/BAT1/capacity)
+        local status=$(cat /sys/class/power_supply/BAT1/status)
 
-  if [ "$(which acpi)" ]; then
-
-    local fgdefault='#[default]'
-
-    if [ "$(cat /sys/class/power_supply/ACAD/online)" == 1 ] ; then
-      local charging='+'
+        case $status in
+            "Charging")
+                echo "Bat: ${capacity}% Cargando"
+                ;;
+            "Discharging")
+                echo "Bat: ${capacity}% Descargando"
+                ;;
+            *)
+                echo "Bat: ${capacity}% Enchufada"
+                ;;
+        esac
     else
-      local charging='-'
+        echo "No hay batería"
     fi
-    # Check for existence of a battery.
-    if [ -x /sys/class/power_supply/BAT1 ] ; then
-      local batt0=$(acpi -b 2> /dev/null | awk '/Battery 0/{print $4}' | cut -d, -f1)
-
-      case $batt0 in
-        100%|9[0-9]%|8[0-9]%|7[5-9]%) fgcolor='#[fg=brightgrey]'
-          ;;
-        7[0-4]%|6[0-9]%|5[0-9]%) fgcolor='#[fg=brightgreen]'
-          ;;
-        4[0-9]%|3[0-9]%|2[5-9]%) fgcolor='#[fg=brightyellow]'
-          ;;
-        2[0-4]%|1[0-9]%|[0-9]%) fgcolor='#[fg=brightred]'
-          ;;
-      esac
-
-            # Display the percentage of charge the battery has.
-            printf "%s " "${fgcolor}${charging}${batt0}${fgdefault}"
-
-    fi
-  fi
 }
 
-function cpu_temperature() {
-  # Display the temperature of CPU core 0 and core 1.
-  sensors | awk '{printf $2" "}' | awk '{printf $7}' | awk '{a=$1} END {printf("%5.0fºC", a)}'
+# Función para medir el uso del CPU y la memoria
+cpu_mem_usage() {
+    local cpu=$(top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4 "%"}')
+    local mem=$(free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }')
+    echo "CPU: $cpu, Mem: $mem"
 }
 
-function ip_address() {
-  # Loop through the interfaces and check for the interface that is up.
-  for file in /sys/class/net/*; do
-
-    iface=$(basename $file);
-
-    read status < $file/operstate;
-
-    [ "$status" == "up" ] && ip addr show $iface | awk '/inet /{printf $2" "}'
-
-  done
+# Función para medir la temperatura de la CPU
+cpu_temperature() {
+    sensors | awk '{printf $2" "}' | awk '{printf $7}' | awk '{a=$1} END {printf("%5.0fºC", a)}'
 }
 
+# Función para obtener la dirección IP
+ip_address() {
+    local ip=$(curl -s https://ifconfig.me)
+    echo "IP: $ip"
+}
 
-function main() {
-  bat=$(battery_meter)
-  temp=$(cpu_temperature)
-  ip=$(ip_address)
-  # memory_usage
-  # vpn_connection
+# Función principal que combina todas las anteriores
+main() {
+    bat=$(battery_meter)
+    # temp=$(cpu_temperature)
+    ip=$(ip_address)
+    usage=$(cpu_mem_usage)
 
-  printf "%s" "${ip}| ${bat}|${temp}"
+    # printf "%s | %s | %s | %s" "$ip" "$bat" "$temp" "$usage"
+    printf "%s | %s | %s" "$ip" "$bat" "$usage"
 }
 
 main

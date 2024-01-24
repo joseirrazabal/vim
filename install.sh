@@ -2,7 +2,7 @@
 
 sudo add-apt-repository ppa:jonathonf/vim -y
 
-sudo apt update && sudo apt install tilda curl git tmux vim zsh build-essential cmake openvpn libssl-dev silversearcher-ag xclip zsh-antigen python-dev -y
+sudo apt update && sudo apt install tilda curl git tmux vim zsh build-essential cmake openvpn libssl-dev silversearcher-ag xclip zsh-antigen -y
 
 #fonts
 #git clone https://github.com/ryanoasis/nerd-fonts.git

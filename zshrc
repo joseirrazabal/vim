@@ -1,3 +1,4 @@
+# export LANG=es_ES.UTF-8
 # The following lines were added by compinstall
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' matcher-list '' '' 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=** l:|=*'
@@ -197,7 +198,6 @@ SAVEHIST=$HISTSIZE
 if test -t 1; then
   force_color_prompt=yes
   color_prompt=yes
-  export TERM="xterm-256color"
   # enable color support of ls and also add handy aliases
   alias ls='ls --color=auto'
   alias less='less -R'
@@ -320,3 +320,45 @@ if [ -d $LOCAL_BIN ]; then
 fi
 
 export PATH=$PATH:/home/user/.linuxbrew/bin:/home/user/.linuxbrew/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+
+export PATH=$HOME/.rbenv/bin:$PATH
+eval "$(rbenv init -)"
+
+
+alias nvim-lazy="NVIM_APPNAME=LazyNvim nvim"
+alias nvim-jose="NVIM_APPNAME=joseNvim nvim"
+alias nvim-ada="NVIM_APPNAME=adalessaNvim nvim"
+alias nvim-astro="NVIM_APPNAME=AstroNvim nvim"
+alias nvim-vapour="NVIM_APPNAME=VapourNvim"
+alias nvim-pojo="NVIM_APPNAME=PojoNvim"
+
+function nvims() {
+  items=("default" "joseNvim" "LazyNvim" "AstroNvim" "adalessaNvim" "VapourNvim" "PojoNvim" )
+  config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --layout=reverse --border --exit-0)
+  if [[ -z $config ]]; then
+    echo "Nothing selected"
+    return 0
+  elif [[ $config == "default" ]]; then
+    config=""
+  fi
+  NVIM_APPNAME=$config nvim $@
+}
+
+# bindkey -s ^a "nvims\n"
+# bindkey \ca nvims
+export PATH="$PATH:`pwd`/flutter/bin"
+# export CHROME_EXECUTABLE='/mnt/c/Program Files/Google/Chrome/Application/chrome.exe'
+# export PATH=$PATH:"/mnt/c/Users/josei/AppData/Local/Android/Sdk/platform-tools"
+
+export ANDROID_WIN="/mnt/c/Users/josei/AppData/Local/Android/Sdk"
+export ANDROID_HOME=$HOME/Android/SDK
+# export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+
+# export PATH=$PATH:$ANDROID_HOME/cmdline-tools/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$JAVA_HOME/bin
+# export PATH=$JAVA_HOME/bin:$PATH
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
