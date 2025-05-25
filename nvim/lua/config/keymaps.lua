@@ -1,77 +1,91 @@
 local map = vim.keymap.set
 
--- -- Mapeo para mover hacia abajo 5 líneas con Shift+J
-map({'n', 'v'}, '<S-J>', '5j<CR>', { noremap = true, silent = true })
--- -- Mapeo para mover hacia arriba 5 líneas con Shift+K
-map({'n', 'v'}, '<S-K>', '5k<CR>', { noremap = true, silent = true })
+-- para que el cursor cambie mas rapido al cambiar de modo
+vim.opt.timeoutlen = 200 -- Reducir a 300 ms
 
--- new tab
-map('n', 'tt', ':tabnew<CR>', { noremap = true, silent = true })
+vim.filetype.add({
+	extension = {
+		http = "http",
+	},
+})
 
--- -- Mapeo para ir al inicio de la línea con Shift+H
-map({'n', 'v'}, '<S-H>', '^', { noremap = true })
--- -- Mapeo para ir al final de la línea con Shift+L
-map({'n','v'}, '<S-L>', '$', { noremap = true })
+-- Mover hacia abajo 5 líneas y mantener la misma columna
+map({ "n", "v" }, "<S-J>", "5j", { noremap = true, silent = true })
+-- Mover hacia arriba 5 líneas y mantener la misma columna
+map({ "n", "v" }, "<S-K>", "5k", { noremap = true, silent = true })
 
+-- Mover al final de la línea con Shift+L
+map({ "n", "v" }, "<S-L>", "$", { noremap = true, silent = true })
 
--- al buscar trata de estar siempre en el medio
-map('n', 'n', 'nzzzv', { noremap = true })
-map('n', 'N', 'Nzzzv', { noremap = true })
-map('n', '<leader>p', '"_diwP', { noremap = true })
-map('n', '<leader>w', '"_diw', { noremap = true })
+local function toggle_line_start()
+	-- Obtener la posición actual del cursor (fila, columna)
+	local col = vim.fn.col(".")
 
--- Mapeo para abrir el archivo referenciado en una importación con ff
-vim.api.nvim_set_keymap('n', 'ff', ':normal! $bbgf<CR>', { noremap = true, silent = true })
-
-local function toggle_neotree()
-	-- Verificar si la variable b:neo_tree_tabid existe y es igual a 1
-	if vim.b.neo_tree_tabid and vim.b.neo_tree_tabid == 1 then
-		vim.cmd('Neotree close')
+	if col == 1 then
+		-- Si ya estamos en la columna 0, mover al primer carácter no vacío (^)
+		vim.cmd("normal! ^")
 	else
-		vim.cmd('Neotree reveal')
+		-- Si no estamos en la columna 0, mover a la columna 0
+		vim.cmd("normal! 0")
 	end
 end
 
-map('n', '<F3>', toggle_neotree, { desc = 'Toggle Explorer' })
+-- Mapeo para Shift+H (mover al inicio de la línea o al primer carácter)
+map("n", "<S-H>", toggle_line_start, { noremap = true, silent = true })
 
--- ===========================
+-- Al buscar, centra la vista
+map("n", "n", "nzzzv", { noremap = true })
+map("n", "N", "Nzzzv", { noremap = true })
 
-local function open_neotree_at_root()
-	if vim.b.neo_tree_tabid and vim.b.neo_tree_tabid == 1 then
-		vim.cmd('Neotree close')
-	else
-		-- Obtener el directorio de trabajo actual desde donde Neovim fue lanzado
-		local cwd = vim.loop.cwd()
-		-- Cambiar el directorio de trabajo de Neovim a ese directorio
-		vim.cmd('cd ' .. cwd)
-		-- Abrir Neotree en ese directorio
-		vim.cmd('Neotree reveal')
-		-- vim.cmd('Neotree action=close_all_nodes')
-	end
-end
-
-map('n', '-', open_neotree_at_root, { desc = 'Open Explorer at Root' })
-
-
-vim.api.nvim_create_user_command('Q', function()
+-- Reemplazar ':q' con ':Q' para evitar cerrar buffers con cambios sin guardar
+vim.api.nvim_create_user_command("Q", function()
 	local bufnr = vim.api.nvim_get_current_buf()
-	-- Verificar si el buffer tiene cambios no guardados
-	if vim.api.nvim_buf_get_option(bufnr, 'modified') then
-		-- Mostrar una notificación en lugar de cerrar el buffer
+	if vim.api.nvim_buf_get_option(bufnr, "modified") then
 		vim.notify("Buffer has unsaved changes", "error", { title = "Warning" })
 	else
-		-- Si no hay cambios no guardados, proceder a cerrar el buffer
-		if #vim.fn.getbufinfo({buflisted = 1}) > 1 then
-			vim.api.nvim_buf_delete(bufnr, {force = true})
+		if #vim.fn.getbufinfo({ buflisted = 1 }) > 1 then
+			vim.api.nvim_buf_delete(bufnr, { force = true })
 		else
-			vim.cmd('quit')
+			vim.cmd("quit")
 		end
 	end
 end, {})
 
--- Reemplazar ':q' con ':Q' en el modo de comandos
-vim.cmd [[cabbrev <expr> q getcmdtype() == ':' && getcmdline() == 'q' ? 'Q' : 'q']]
+vim.cmd([[cabbrev <expr> q getcmdtype() == ':' && getcmdline() == 'q' ? 'Q' : 'q']])
 
+-- Mantener selección al tabular en modo visual
+vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true, silent = true })
 
--- vim.notify = require("notify")
--- vim.notify("Acción ejecutada, probando el largo del mensaje, aca unas palabras para ver bien que es lo que hace cuando un texto es demasiado largo", "info")
+-- Mapeos de plegado con ufo.nvim
+map("n", "z", require("ufo").openAllFolds, { noremap = true, silent = true })
+map("n", "Z", require("ufo").closeAllFolds, { noremap = true, silent = true })
+map("n", "za", "za", { noremap = true, silent = true })
+
+-- Mapeo para formatear el código con leader + c + f
+map("n", "<leader>cf", function()
+	vim.lsp.buf.format({ async = true }) -- Formateo del código
+end, { noremap = true, silent = true })
+
+-- Moverse a la siguiente pestaña con 'tt'
+map("n", "tn", ":BufferLineCycleNext<CR>", { noremap = true, silent = true })
+
+-- Moverse a la pestaña anterior con 'tn'
+map("n", "tp", ":BufferLineCyclePrev<CR>", { noremap = true, silent = true })
+
+-- Toggle Neotree
+local function toggle_neotree()
+	local cwd = vim.loop.cwd() -- Obtener el directorio actual
+
+	if vim.b.neo_tree_tabid and vim.b.neo_tree_tabid == 1 then
+		-- Si Neotree está abierto, cerrarlo
+		vim.cmd("Neotree close")
+	else
+		-- Abrir Neotree en el lateral izquierdo (position=left)
+		vim.cmd("Neotree reveal filesystem position=left dir=" .. cwd)
+	end
+end
+
+-- Mapeo de teclas para toggle Neotree
+vim.keymap.set("n", "<F3>", toggle_neotree, { desc = "Toggle Explorer" })
+vim.keymap.set("n", "-", toggle_neotree, { desc = "Open Explorer at Root" })

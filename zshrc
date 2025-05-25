@@ -321,6 +321,7 @@ fi
 
 export PATH=$PATH:/home/user/.linuxbrew/bin:/home/user/.linuxbrew/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 
+export NPM_AUTH_TOKEN=""
 
 export PATH=$HOME/.rbenv/bin:$PATH
 eval "$(rbenv init -)"

@@ -1,6 +1,4 @@
 local map = vim.keymap.set
--- telescope-config.lua
-map("n", "<C-p>", ":Telescope fd<CR>", { desc = "Open Project files" })
 
 local status_ok, telescope = pcall(require, "telescope")
 if not status_ok then
@@ -9,6 +7,7 @@ end
 
 
 local actions = require("telescope.actions")
+local action_state = require('telescope.actions.state')  -- Aseguramos que action_state está correctamente importado
 require('telescope').setup{
   defaults = {
     -- Default configuration for telescope goes here:
@@ -81,6 +80,18 @@ require('telescope').setup{
         ["<PageDown>"] = actions.results_scrolling_down,
 
         ["?"] = actions.which_key,
+
+        ["c"] = function(prompt_bufnr)
+          local selection = action_state.get_selected_entry()
+          actions.close(prompt_bufnr)
+          vim.cmd('Git checkout ' .. selection.value)
+        end,
+
+        ["d"] = function(prompt_bufnr)
+          local selection = action_state.get_selected_entry()
+          actions.close(prompt_bufnr)
+          vim.cmd('vert Gitsigns diffthis ' .. selection.value)
+        end,
       },
     }
   },

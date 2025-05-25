@@ -1,22 +1,40 @@
 return {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-        "williamboman/mason.nvim",
-        "folke/neodev.nvim"
-    },
-    config = function()
-        local on_attach = function(client, bufnr)
-            -- Desactivar el mapeo predeterminado de 'K' para 'hover'
-            vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Nop>', {noremap = true, silent = true})
-            -- Aquí puedes añadir otros mapeos o configuraciones para el LSP
-        end
+	"neovim/nvim-lspconfig",
+	dependencies = {
+		"williamboman/mason.nvim", -- Para gestionar los servidores LSP
+		"folke/neodev.nvim", -- Para mejorar la integración con Neovim Lua
+	},
+	config = function()
+		local on_attach = function(client, bufnr)
+			-- Desactivar el mapeo predeterminado de 'K' para 'hover'
+		end
 
-        require("neodev").setup({})
-        require("lspconfig").lua_ls.setup({
-            -- on_attach = on_attach
-        })
-        require("lspconfig").tsserver.setup({
-            -- on_attach = on_attach
-        })
-    end
+		-- Setup para neodev (mejora el soporte para Lua)
+		require("neodev").setup({})
+
+		-- Configuración para Lua (lua_ls)
+		require("lspconfig").lua_ls.setup({
+			-- on_attach = on_attach
+		})
+
+		-- Configuración para TypeScript (ts_ls)
+		require("lspconfig").ts_ls.setup({
+			on_attach = on_attach
+		})
+
+		-- Configuración para Rust (rust-analyzer)
+		require("lspconfig").rust_analyzer.setup({
+			on_attach = on_attach,
+			settings = {
+				["rust-analyzer"] = {
+					cargo = {
+						allFeatures = true,
+					},
+					checkOnSave = {
+						command = "clippy", -- Usa Clippy para linting en cada guardado
+					},
+				},
+			},
+		})
+	end,
 }

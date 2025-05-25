@@ -32,38 +32,13 @@ return {
           },
         })
 
-      vim.keymap.set({ "n", "v" }, "<leader>i", function()
-        conform.format({
-            lsp_fallback = true,
-            async = false,
-            timeout_ms = 1000,
-          })
-      end, { desc = "Format file or range (in visual mode)" })
-  end,
-},
-{
-  "ThePrimeagen/harpoon",
-  branch = "harpoon2",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-  },
-  config = function()
-    -- set keymaps
-    local keymap = vim.keymap -- for conciseness
-
-    keymap.set(
-      "n",
-      "<leader>hm",
-      "<cmd>lua require('harpoon.mark').add_file()<cr>",
-      { desc = "Mark file with harpoon" }
-      )
-    keymap.set("n", "<leader>hn", "<cmd>lua require('harpoon.ui').nav_next()<cr>", { desc = "Go to next harpoon mark" })
-    keymap.set(
-      "n",
-      "<leader>hp",
-      "<cmd>lua require('harpoon.ui').nav_prev()<cr>",
-      { desc = "Go to previous harpoon mark" }
-      )
+      -- vim.keymap.set({ "n", "v" }, "<leader>i", function()
+      --   conform.format({
+      --       lsp_fallback = true,
+      --       async = false,
+      --       timeout_ms = 1000,
+      --     })
+      -- end, { desc = "Format file or range (in visual mode)" })
   end,
 },
 {
@@ -91,9 +66,9 @@ return {
         end,
       })
 
-    vim.keymap.set("n", "<leader>l", function()
-      lint.try_lint()
-    end, { desc = "Trigger linting for current file" })
+    -- vim.keymap.set("n", "<leader>l", function()
+    --   lint.try_lint()
+    -- end, { desc = "Trigger linting for current file" })
 end,
 }
 }

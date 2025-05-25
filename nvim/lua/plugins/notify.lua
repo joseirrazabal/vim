@@ -17,10 +17,5 @@ return {
                 vim.api.nvim_win_set_config(win, { zindex = 100 })
             end
         }
-
-        -- Mapeo de teclas para descartar notificaciones
-        vim.keymap.set("n", "<leader>un", function()
-            require("notify").dismiss({ silent = true, pending = true })
-        end, { desc = "Dismiss all Notifications" })
     end
 }
