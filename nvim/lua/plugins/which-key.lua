@@ -65,6 +65,10 @@ return {
 				end,
 				desc = "Dismiss all Notifications",
 			},
+			{ "<leader>d", group = "database" },
+			{ "<leader>du", "<cmd>DBUIToggle<CR>", desc = "DB UI" },
+			{ "<leader>da", "<cmd>DBUIAddConnection<CR>", desc = "Add Connection" },
+			{ "<leader>df", "<cmd>DBUIFindBuffer<CR>", desc = "Find DB Buffer" },
 
 			-- Grupo para LSP (trabajar con el código)
 			{ "<leader>c", group = "code" },
@@ -79,7 +83,8 @@ return {
 			{ "<leader>cd", "<Cmd>lua vim.lsp.buf.definition()<CR>", desc = "Go to Definition" }, -- Ir a la definición
 			{ "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" },
 			{ "<leader>cx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
-			{ "<leader>ct", "<cmd>Trouble todo toggle<cr>", desc = "Diagnostics (Trouble)" },
+			{ "<leader>ct", "<cmd>TodoTelescope<CR>", desc = "TODOs (Telescope)" },
+			{ "<leader>cT", "<cmd>Trouble todo toggle<cr>", desc = "TODOs (Trouble)" },
 			{
 				"<leader>cp",
 				"<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
@@ -93,6 +98,15 @@ return {
 
 			-- Grupo "g" para acciones de Git
 			{ "<leader>g", group = "git" },
+			{ "<leader>gd", "<cmd>DiffviewOpen<CR>", desc = "Diffview Open" },
+			{ "<leader>gD", "<cmd>DiffviewClose<CR>", desc = "Diffview Close" },
+			{ "<leader>gh", "<cmd>DiffviewFileHistory<CR>", desc = "File History" },
+			{ "<leader>n", group = "notes" },
+			{ "<leader>nn", "<cmd>Telekasten new_note<CR>", desc = "New Note" },
+			{ "<leader>nf", "<cmd>Telekasten find_notes<CR>", desc = "Find Notes" },
+			{ "<leader>nt", "<cmd>Telekasten goto_today<CR>", desc = "Today" },
+			{ "<leader>nd", "<cmd>Telekasten goto_thisweek<CR>", desc = "This Week" },
+			{ "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", desc = "Markdown Preview" },
 			-- Estado y commit
 			{ "<leader>gs", "<cmd>Git<CR>", desc = "Git Status" },
 			{ "<leader>gc", "<cmd>Git commit<CR>", desc = "Git Commit" },

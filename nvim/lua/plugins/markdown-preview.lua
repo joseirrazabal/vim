@@ -1,8 +1,6 @@
 return {
-  "adalessa/markdown-preview.nvim",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-  },
-  config = true,
-  ft = "markdown",
+  "iamcco/markdown-preview.nvim",
+  build = "cd app && npm install",
+  ft = { "markdown" },
+  cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 }

@@ -12,14 +12,16 @@ return {
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp",
-			-- Asegúrate de que Copilot esté en la lista de dependencias
-			"github/copilot.vim",
 		},
 		event = "InsertEnter",
 		opts = function()
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
-			local copilot = require("copilot.suggestion")
+			local copilot = nil
+			local copilot_ok, copilot_mod = pcall(require, "copilot.suggestion")
+			if copilot_ok then
+				copilot = copilot_mod
+			end
 
 			local border_opts = {
 				border = "rounded",
@@ -44,7 +46,7 @@ return {
 				},
 				mapping = {
 					["<Tab>"] = cmp.mapping(function(fallback)
-						if copilot.is_visible() then
+						if copilot and copilot.is_visible() then
 							copilot.accept()
 						elseif cmp.visible() then
 							cmp.select_next_item()

@@ -1,9 +1,26 @@
-# vim
+# Configuracion
 
-desde la raiz del usuario ejecutar
+Este repo guarda toda la configuracion personal. Todo vive dentro de `.configuracion` y el home solo
+tiene links simbolicos.
+
+## Instalacion
+
+Desde la raiz del usuario:
+
+```bash
 git clone https://github.com/joseirrazabal/vim .configuracion
-sh .configuracion/install.sh
+sh .configuracion/scripts/install.sh
+```
 
-cuando entras a vim, va a instalar todos los plugins
+Cuando entras a vim, se instalan los plugins.
 
-en tilda o la terminal que se use, elegir la tipografia roboto de nerd font, y un tamaño adecuado
+## Estructura
+
+- `shell/` zshrc, zshenv, exports, aliases, functions, antigen
+- `tmux/` tmux.conf, kube.tmux, right_status.sh
+- `vim/` vimrc
+- `nvim/` configuracion de Neovim
+- `git/` gitconfig
+- `scripts/` helpers (install, touch)
+- `bin/` scripts personales
+- `completion/` completions zsh

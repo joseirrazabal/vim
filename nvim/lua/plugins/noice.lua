@@ -22,7 +22,8 @@ return {
       lsp_doc_border = true, -- add a border to hover docs and signature help
     },
     cmdline = {
-      view = "cmdline",
+      enabled = true,
+      view = "cmdline_popup",
     },
     messages = {
       enabled = true, -- enables the Noice messages UI

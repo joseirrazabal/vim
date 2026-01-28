@@ -1,86 +1,69 @@
+local ensure_installed = {
+  "bash",
+  "blade",
+  "css",
+  "go",
+  "gomod",
+  "html",
+  "javascript",
+  "json",
+  "lua",
+  "luadoc",
+  "markdown",
+  "markdown_inline",
+  "nix",
+  "php",
+  "phpdoc",
+  "query",
+  "rust",
+  "sql",
+  "svelte",
+  "typescript",
+  "regex",
+  "vim",
+  "yaml",
+}
+
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-  },
   event = "VeryLazy",
-  main = "nvim-treesitter.configs",
-  opts = {
-    ensure_installed = {
-      "bash",
-      "blade",
-      "css",
-      "go",
-      "gomod",
-      "html",
-      "javascript",
-      "json",
-      "lua",
-      "luadoc",
-      "markdown",
-      "markdown_inline",
-      "nix",
-      "org",
-      "php",
-      "phpdoc",
-      "query",
-      "rust",
-      "sql",
-      "svelte",
-      "typescript",
-      "regex",
-      "vim",
-      "yaml",
-    },
-    highlight = {
-      enable = true,
-      additional_vim_regex_highlighting = { "org" },
-    },
-    indent = {
-      enable = true,
-    },
-    textobjects = {
-      select = {
-        enable = true,
-        lookahead = true,
-        keymaps = {
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["ac"] = "@conditional.outer",
-          ["ic"] = "@conditional.inner",
-          ["al"] = "@loop.outer",
-          ["il"] = "@loop.inner",
-        },
-      },
-    },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "gnn",
-        node_incremental = "grn",
-        scope_incremental = "grc",
-        node_decremental = "grm",
-      },
-    },
-  },
-  config = function(plug, config)
-    local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+  config = function()
+    local parser_config = require("nvim-treesitter.parsers")
     parser_config.blade = {
       install_info = {
         url = "https://github.com/EmranMR/tree-sitter-blade",
-        files = {"src/parser.c"},
+        files = { "src/parser.c" },
         branch = "main",
       },
-      filetype = "blade"
+      filetype = "blade",
     }
 
     vim.filetype.add({
       pattern = {
-        ['.*%.blade%.php'] = 'blade',
-      }
+        [".*%.blade%.php"] = "blade",
+      },
     })
 
-    require(plug.main).setup(config);
+    local ts = require("nvim-treesitter")
+    ts.setup()
+
+    local installed = ts.get_installed("parsers")
+    local missing = {}
+    for _, lang in ipairs(ensure_installed) do
+      if not vim.tbl_contains(installed, lang) then
+        table.insert(missing, lang)
+      end
+    end
+    if #missing > 0 then
+      ts.install(missing)
+    end
+
+    vim.api.nvim_create_autocmd("FileType", {
+      callback = function(args)
+        pcall(vim.treesitter.start)
+        vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      end,
+    })
   end,
 }

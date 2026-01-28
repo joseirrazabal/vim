@@ -1,0 +1,5 @@
+skip_global_compinit=1
+if [ -f "$HOME/.configuracion/shell/exports.zsh" ]; then
+  . "$HOME/.configuracion/shell/exports.zsh"
+fi
+. "$HOME/.cargo/env"

@@ -1,0 +1,142 @@
+# export LANG=es_ES.UTF-8
+# The following lines were added by compinstall
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' matcher-list '' '' 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=** l:|=*'
+zstyle ':completion:*' menu no
+# zstyle ':completion:*' menu select=interactive # no funciona avanzar con flechas
+zstyle :compinstall filename '$HOME/.zshrc'
+
+# custom zsh completions
+fpath=(~/.configuracion/completion $fpath)
+fpath=(${fpath:#/usr/share/zsh/vendor-completions})
+
+autoload -Uz compinit && compinit
+# End of lines added by compinstall
+
+# fzf-tab
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -1 --color=always $realpath'
+
+if [ -f "$HOME/.configuracion/shell/exports.zsh" ]; then
+  . "$HOME/.configuracion/shell/exports.zsh"
+fi
+
+# ZSH SPECIFIC
+setopt AUTOCD EXTENDEDGLOB NOTIFY PROMPT_SUBST MAGIC_EQUAL_SUBST AUTO_NAME_DIRS
+bindkey -e
+autoload -Uz promptinit && promptinit
+
+# fnm
+if command -v fnm >/dev/null 2>&1; then
+  eval "$(fnm env --use-on-cd)"
+fi
+
+if [ -f "$HOME/.configuracion/shell/functions.zsh" ]; then
+  . "$HOME/.configuracion/shell/functions.zsh"
+fi
+
+# ANTIGEN
+_ANTIGEN_INSTALL_DIR="$HOME/.configuracion/shell"
+antigen_source="$HOME/.configuracion/shell/antigen.zsh"
+
+
+# CONFIG POWER FONT
+POWERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k
+
+POWERLEVEL9K_MODE='nerdfont-complete'
+
+POWERLEVEL9K_CONTEXT_DEFAULT_BACKGROUND="red"
+POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND="white"
+POWERLEVEL9K_CONTEXT_ROOT_BACKGROUND="red"
+POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND="blue"
+
+POWERLEVEL9K_DIR_HOME_BACKGROUND="blue"
+POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND="blue"
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
+POWERLEVEL9K_DIR_DEFAULT_BACKGROUND="black"
+POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="249"
+
+POWERLEVEL9K_OS_ICON_BACKGROUND="black"
+POWERLEVEL9K_OS_ICON_FOREGROUND="white"
+
+POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='blue'
+POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='white'
+POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='red'
+POWERLEVEL9K_VCS_UNTRACKED_ICON='?'
+
+POWERLEVEL9K_NODE_VERSION_BACKGROUND="249"
+POWERLEVEL9K_NODE_VERSION_FOREGROUND="black"
+POWERLEVEL9K_NODE_VERSION_VISUAL_IDENTIFIER_COLOR="white"
+
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir_writable dir)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs node_version)
+
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+
+function anti_init() {
+  . $antigen_source
+  antigen use oh-my-zsh
+  antigen theme bhilburn/powerlevel9k powerlevel9k
+
+  antigen bundle git
+  antigen bundle command-not-found
+  # antigen bundle shrink-path
+  # antigen bundle mvn
+  # antigen bundle sbt
+  # antigen bundle scala
+  # antigen bundle cargo
+  antigen bundle zsh-users/zsh-autosuggestions
+  antigen bundle Aloxaf/fzf-tab
+  antigen bundle zsh-users/zsh-completions
+  antigen bundle zsh-users/zsh-history-substring-search
+  antigen bundle zsh-users/zsh-syntax-highlighting
+  # --------
+  antigen bundle sudo
+  antigen bundle webyneter/docker-aliases.git
+  # antigen bundle alexrochas/zsh-extract
+  # --------
+
+  antigen apply
+}
+
+if [ -f "$antigen_source" ]; then
+  anti_init
+else
+  if command -v curl >/dev/null 2>&1; then
+    curl -fsSL https://raw.githubusercontent.com/zsh-users/antigen/master/bin/antigen.zsh -o "$antigen_source" && anti_init
+  fi
+fi
+
+# HISTORY
+setopt HIST_IGNORE_ALL_DUPS SHARE_HISTORY INC_APPEND_HISTORY EXTENDED_HISTORY HIST_IGNORE_SPACE HIST_FIND_NO_DUPS HIST_SAVE_NO_DUPS
+HISTFILE=~/.hist_zsh
+HISTSIZE=5000000
+SAVEHIST=$HISTSIZE
+# History end
+
+if [ -f "$HOME/.configuracion/shell/aliases.zsh" ]; then
+  . "$HOME/.configuracion/shell/aliases.zsh"
+fi
+if (( $+commands[rbenv] )); then
+  eval "$(rbenv init -)"
+fi
+
+
+# fzf
+export FZF_CTRL_R_OPTS="--height 40% --layout=reverse --border --prompt='hist> ' --tiebreak=index"
+if [ -f /usr/share/fzf/key-bindings.zsh ]; then
+  . /usr/share/fzf/key-bindings.zsh
+elif [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then
+  . /usr/share/doc/fzf/examples/key-bindings.zsh
+fi
+if [ -f /usr/share/fzf/completion.zsh ]; then
+  . /usr/share/fzf/completion.zsh
+elif [ -f /usr/share/doc/fzf/examples/completion.zsh ]; then
+  . /usr/share/doc/fzf/examples/completion.zsh
+fi
+
+# zoxide
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+fi

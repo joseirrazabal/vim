@@ -2,6 +2,26 @@ return {
   "nvim-lualine/lualine.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
+    local noice_ok, noice = pcall(require, "noice")
+
+    local lualine_x = {
+      "diagnostics",
+      "diff",
+      {
+        require("lazy.status").updates,
+        cond = require("lazy.status").has_updates,
+        color = { fg = "ff9e64" },
+      },
+    }
+
+    if noice_ok then
+      table.insert(lualine_x, 3, {
+        noice.api.status.mode.get,
+        cond = noice.api.status.mode.has,
+        color = { fg = "#ff9e64" },
+      })
+    end
+
     require("lualine").setup {
       options = {
         theme = "auto",
@@ -13,20 +33,7 @@ return {
         lualine_a = { { "mode", upper = true } },
         lualine_b = { { "branch", icon = "" }, "db_ui#statusline" },
         lualine_c = { { "filename", file_status = true, path = 1 } },
-        lualine_x = {
-          "diagnostics",
-          "diff",
-          {
-            require("noice").api.status.mode.get,
-            cond = require("noice").api.status.mode.has,
-            color = { fg = "#ff9e64" },
-          },
-          {
-            require("lazy.status").updates,
-            cond = require("lazy.status").has_updates,
-            color = { fg = "ff9e64" },
-          },
-        },
+        lualine_x = lualine_x,
         lualine_y = { "filetype" },
         lualine_z = { "location" },
       },

@@ -36,7 +36,13 @@ cpu_temperature() {
 
 # Función para obtener la dirección IP
 ip_address() {
-    local ip=$(curl -s https://ifconfig.me)
+    local ip=$(curl -fsSL --max-time 2 -4 https://ifconfig.me/ip | tr -d '\n')
+    if [ -z "$ip" ]; then
+        ip=$(ip -4 route get 1.1.1.1 2>/dev/null | awk '{for (i=1;i<=NF;i++) if ($i=="src") {print $(i+1); exit}}')
+    fi
+    if [ -z "$ip" ]; then
+        ip="--"
+    fi
     echo "IP: $ip"
 }
 

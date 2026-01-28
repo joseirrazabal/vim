@@ -1,0 +1,47 @@
+CONFIG_BIN="$HOME/.configuracion/bin"
+LOCAL_BIN="$HOME/.local/bin"
+FNM_PATH="$HOME/.local/share/fnm"
+
+ANDROID_WIN="/mnt/c/Users/josei/AppData/Local/Android/Sdk"
+ANDROID_HOME="$HOME/Android/SDK"
+JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
+NPM_AUTH_TOKEN=""
+
+typeset -U path PATH
+path=(
+  "$LOCAL_BIN"
+  "$CONFIG_BIN"
+  "$HOME/.rbenv/bin"
+  "$FNM_PATH"
+  "/home/user/.linuxbrew/bin"
+  "/home/user/.linuxbrew/sbin"
+  "/usr/local/sbin"
+  "/usr/local/bin"
+  "/usr/sbin"
+  "/usr/bin"
+  "/sbin"
+  "/bin"
+  "/usr/games"
+  "/usr/local/games"
+  "/snap/bin"
+  "$HOME/.opencode/bin"
+  "/opt/nvim-linux-x86_64/bin"
+  "$ANDROID_HOME/platform-tools"
+  "$ANDROID_HOME/cmdline-tools/latest/bin"
+  "$JAVA_HOME/bin"
+  $path
+  "/usr/lib/wsl/lib"
+  "/mnt/c/WINDOWS/system32"
+  "/mnt/c/WINDOWS"
+  "/mnt/c/WINDOWS/System32/Wbem"
+  "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+  "/mnt/c/WINDOWS/System32/OpenSSH/"
+  "/mnt/c/Program Files/dotnet/"
+  "/mnt/c/Program Files/Docker/Docker/resources/bin"
+  "/mnt/c/Users/josei/AppData/Local/Microsoft/WindowsApps"
+  "/mnt/c/Users/josei/AppData/Local/Programs/Microsoft VS Code/bin"
+  "/mnt/c/Users/josei/AppData/Local/Programs/Windsurf/bin"
+  "/mnt/c/Users/josei/AppData/Local/Programs/Antigravity/bin"
+)
+
+export PATH CONFIG_BIN LOCAL_BIN FNM_PATH ANDROID_WIN ANDROID_HOME JAVA_HOME NPM_AUTH_TOKEN

@@ -13,17 +13,19 @@ return {
 		require("neodev").setup({})
 
 		-- Configuración para Lua (lua_ls)
-		require("lspconfig").lua_ls.setup({
+		vim.lsp.config("lua_ls", {
 			-- on_attach = on_attach
 		})
+		vim.lsp.enable("lua_ls")
 
 		-- Configuración para TypeScript (ts_ls)
-		require("lspconfig").ts_ls.setup({
-			on_attach = on_attach
+		vim.lsp.config("ts_ls", {
+			on_attach = on_attach,
 		})
+		vim.lsp.enable("ts_ls")
 
 		-- Configuración para Rust (rust-analyzer)
-		require("lspconfig").rust_analyzer.setup({
+		vim.lsp.config("rust_analyzer", {
 			on_attach = on_attach,
 			settings = {
 				["rust-analyzer"] = {
@@ -36,5 +38,6 @@ return {
 				},
 			},
 		})
+		vim.lsp.enable("rust_analyzer")
 	end,
 }
