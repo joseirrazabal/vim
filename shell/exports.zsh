@@ -1,6 +1,7 @@
 CONFIG_BIN="$HOME/.configuracion/bin"
 LOCAL_BIN="$HOME/.local/bin"
 FNM_PATH="$HOME/.local/share/fnm"
+FNM_DEFAULT_BIN="$FNM_PATH/node-versions/v24.13.0/installation/bin"
 
 ANDROID_WIN="/mnt/c/Users/josei/AppData/Local/Android/Sdk"
 ANDROID_HOME="$HOME/Android/SDK"
@@ -11,6 +12,7 @@ typeset -U path PATH
 path=(
   "$LOCAL_BIN"
   "$CONFIG_BIN"
+  "$FNM_DEFAULT_BIN"
   "$HOME/.rbenv/bin"
   "$FNM_PATH"
   "/home/user/.linuxbrew/bin"
@@ -44,4 +46,4 @@ path=(
   "/mnt/c/Users/josei/AppData/Local/Programs/Antigravity/bin"
 )
 
-export PATH CONFIG_BIN LOCAL_BIN FNM_PATH ANDROID_WIN ANDROID_HOME JAVA_HOME NPM_AUTH_TOKEN
+export PATH CONFIG_BIN LOCAL_BIN FNM_PATH FNM_DEFAULT_BIN ANDROID_WIN ANDROID_HOME JAVA_HOME NPM_AUTH_TOKEN
