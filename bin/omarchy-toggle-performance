@@ -1,0 +1,13 @@
+#!/bin/bash
+
+CURRENT=$(powerprofilesctl get)
+
+if [[ $CURRENT == "power-saver" ]]; then
+  powerprofilesctl set performance
+  hyprctl keyword monitor eDP-2,2560x1600@165,0x0,1.60
+  notify-send -u low "󱐋 Rendimiento" "165Hz + perfil performance"
+else
+  powerprofilesctl set power-saver
+  hyprctl keyword monitor eDP-2,2560x1600@60,0x0,1.60
+  notify-send -u low "󰌫 Ahorro" "60Hz + perfil power-saver"
+fi
