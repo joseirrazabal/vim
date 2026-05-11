@@ -41,17 +41,17 @@ if [[ $EUID -ne 0 ]] && (( $+commands[sudo] )) ; then
   SUDO='sudo'
 fi
 
-if (( $+commands[apt] )) ; then
-  alias apt="$SUDO apt"
-  alias upd='apt update'
-  alias upgy='apt upgrade'
-  alias upl='apt list --upgradable'
-  alias upg='upd && sleep 2 && upl && sleep 2 && upgy'
-  alias pacs='apt search'
-  alias paci='apt install'
-  alias pacr='apt remove'
-  alias pql="dpkg-query -L"
-  alias aar="$SUDO add-apt-repository"
+if (( $+commands[pacman] )) ; then
+  alias upd='sudo pacman -Sy'
+  alias upg='sudo pacman -Syu'
+  alias upgbl='sudo pacman -Syuu'
+  alias pacs='pacman -Ss'
+  alias paci='sudo pacman -S'
+  alias pacr='sudo pacman -R'
+  alias pacq='pacman -Q'
+  alias pacqi='pacman -Qi'
+  alias pacll='pacman -Qdt'
+  alias pql="pacman -Ql"
 fi
 
 if (( $+commands[tmux] )) ; then
