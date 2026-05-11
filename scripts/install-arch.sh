@@ -51,17 +51,6 @@ if [ -d ~/.configuracion/bin ]; then
   done
 fi
 
-echo "==> Installing local desktop overrides..."
-if [ -d ~/.configuracion/local/share/applications ]; then
-  mkdir -p ~/.local/share/applications
-  for f in ~/.configuracion/local/share/applications/*.desktop; do
-    name=$(basename "$f")
-    echo "  - $name"
-    cp "$f" ~/.local/share/applications/"$name"
-  done
-  update-desktop-database ~/.local/share/applications/
-fi
-
 echo "==> Removing conflicting tmux config..."
 if [ -f ~/.config/tmux/tmux.conf ]; then
   mv ~/.config/tmux/tmux.conf ~/.config/tmux/tmux.conf.bak
