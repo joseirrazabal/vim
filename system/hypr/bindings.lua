@@ -37,6 +37,8 @@ hl.unbind("ALT + TAB")
 hl.unbind("ALT + SHIFT + TAB")
 o.bind("ALT + TAB", "Focus on next window", "snappy-switcher next")
 o.bind("ALT + SHIFT + TAB", "Focus on previous window", "snappy-switcher prev")
+o.bind("ALT_L", "Select snappy-switcher window", "snappy-switcher select", { release = true })
+o.bind("ALT_R", "Select snappy-switcher window", "snappy-switcher select", { release = true })
 
 -- Make Super+F use the same maximize behavior that Omarchy exposes on Super+Alt+F.
 hl.unbind("SUPER + F")

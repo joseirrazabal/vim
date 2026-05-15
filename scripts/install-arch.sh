@@ -41,6 +41,12 @@ if [ -d ~/.configuracion/system ]; then
   done
 fi
 
+echo "==> Linking Omarchy/Hyprland Lua configs..."
+mkdir -p ~/.config/hypr
+for file in hyprland monitors input bindings looknfeel autostart; do
+  ln -sfn ~/.configuracion/system/hypr/$file.lua ~/.config/hypr/$file.lua
+done
+
 echo "==> Installing scripts..."
 if [ -d ~/.configuracion/bin ]; then
   mkdir -p ~/.local/bin
@@ -57,10 +63,15 @@ git clone --depth 1 --branch v3.1.0 https://github.com/OpalAayan/snappy-switcher
 (
   cd "$tmpdir/snappy-switcher"
   patch -p1 < ~/.configuracion/patches/snappy-switcher-current-workspace.patch
+  patch -p1 < ~/.configuracion/patches/snappy-switcher-hyprland-lua-focus.patch
   make
   make install-user
 )
 rm -rf "$tmpdir"
+
+echo "==> Starting patched snappy-switcher daemon..."
+pkill -x snappy-switcher 2>/dev/null || true
+uwsm-app -- ~/.local/bin/snappy-switcher --daemon >/tmp/snappy-switcher.log 2>&1 &
 
 echo "==> Removing conflicting tmux config..."
 if [ -f ~/.config/tmux/tmux.conf ]; then
