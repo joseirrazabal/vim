@@ -142,3 +142,8 @@ fi
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init zsh)"
 fi
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/jose/.lmstudio/bin"
+# End of LM Studio CLI section
+

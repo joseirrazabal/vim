@@ -2,7 +2,7 @@
 set -e
 
 echo "==> Installing packages..."
-sudo pacman -S --needed git tmux vim zsh curl fzf the_silver_searcher base-devel openssh
+sudo pacman -S --needed git tmux vim zsh curl fzf the_silver_searcher base-devel openssh wayland cairo pango json-c libxkbcommon glib2 librsvg wayland-protocols
 
 echo "==> Creating directories..."
 mkdir -p ~/.local/share/zsh/antigen
@@ -50,6 +50,17 @@ if [ -d ~/.configuracion/bin ]; then
     cp "$f" ~/.local/bin/"$name"
   done
 fi
+
+echo "==> Installing patched snappy-switcher..."
+tmpdir=$(mktemp -d)
+git clone --depth 1 --branch v3.1.0 https://github.com/OpalAayan/snappy-switcher.git "$tmpdir/snappy-switcher"
+(
+  cd "$tmpdir/snappy-switcher"
+  patch -p1 < ~/.configuracion/patches/snappy-switcher-current-workspace.patch
+  make
+  make install-user
+)
+rm -rf "$tmpdir"
 
 echo "==> Removing conflicting tmux config..."
 if [ -f ~/.config/tmux/tmux.conf ]; then

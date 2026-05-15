@@ -1,0 +1,51 @@
+diff --git a/src/hyprland.c b/src/hyprland.c
+--- a/src/hyprland.c
++++ b/src/hyprland.c
+@@ -190,7 +190,27 @@ static char *hyprland_request(const char *cmd) {
+ }
+ 
+ /* --- JSON Parsing --- */
+-static int parse_clients(const char *json_str, AppState *state) {
++static int get_active_workspace_id(void) {
++  char *json = hyprland_request("j/activeworkspace");
++  if (!json)
++    return -1;
++
++  struct json_object *root = json_tokener_parse(json);
++  free(json);
++  if (!root)
++    return -1;
++
++  struct json_object *id_obj;
++  int id = -1;
++  if (json_object_object_get_ex(root, "id", &id_obj))
++    id = json_object_get_int(id_obj);
++
++  json_object_put(root);
++  return id;
++}
++
++static int parse_clients(const char *json_str, AppState *state,
++                         int active_workspace_id) {
+   struct json_object *root = json_tokener_parse(json_str);
+   if (!root || !json_object_is_type(root, json_type_array)) {
+     if (root)
+@@ -211,6 +231,8 @@ static int parse_clients(const char *json_str, AppState *state) {
+     int wid = json_object_get_int(ws_id);
+      if (wid == -1) 
+       continue;
++    if (active_workspace_id != -1 && wid != active_workspace_id)
++      continue;
+ 
+     json_object_object_get_ex(ws_obj, "name", &ws_name);
+     json_object_object_get_ex(obj, "address", &addr);
+@@ -305,7 +327,8 @@ int update_window_list(AppState *state, Config *cfg) {
+   if (!json)
+     return -1;
+ 
+-  if (parse_clients(json, state) < 0) {
++  int active_workspace_id = get_active_workspace_id();
++  if (parse_clients(json, state, active_workspace_id) < 0) {
+     free(json);
+     return -1;
+   }

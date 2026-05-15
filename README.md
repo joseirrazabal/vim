@@ -24,3 +24,13 @@ Cuando entras a vim, se instalan los plugins.
 - `scripts/` helpers (install, touch)
 - `bin/` scripts personales
 - `completion/` completions zsh
+- `system/` configs de escritorio copiadas a `~/.config`
+- `patches/` parches reproducibles para herramientas externas
+
+## Hyprland / Omarchy
+
+La config usa `layout = monocle` para que las ventanas tiled ocupen todo el espacio y evita
+las reglas globales de maximize que generaban parpadeo al abrir apps.
+
+`Alt+Tab` usa una version parcheada de `snappy-switcher`, instalada en `~/.local/bin`, que
+mantiene las miniaturas pero filtra las ventanas al workspace actual.
