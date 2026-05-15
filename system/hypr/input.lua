@@ -29,6 +29,6 @@ hl.config({
     workspace_swipe_distance = 150,
     workspace_swipe_cancel_ratio = 0.3,
     workspace_swipe_min_speed_to_force = 10,
-    workspace_swipe_forever = true,
+    workspace_swipe_forever = false,
   },
 })
