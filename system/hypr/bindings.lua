@@ -30,15 +30,15 @@ o.bind("SUPER + SHIFT + ALT + X", "X Post", { webapp = "https://x.com/compose/po
 o.bind("F1", "Toggle magic scratchpad", hl.dsp.workspace.toggle_special("magic"))
 o.bind("SUPER + F1", "Move window to magic scratchpad", hl.dsp.window.move({ workspace = "special:magic", follow = false }))
 
-o.exec_on_start("snappy-switcher --daemon")
+o.exec_on_start(os.getenv("HOME") .. "/.local/bin/snappy-switcher --daemon")
 
 -- Replace Omarchy's default Alt+Tab focus/reveal behavior with snappy-switcher.
 hl.unbind("ALT + TAB")
 hl.unbind("ALT + SHIFT + TAB")
-o.bind("ALT + TAB", "Focus on next window", "snappy-switcher next")
-o.bind("ALT + SHIFT + TAB", "Focus on previous window", "snappy-switcher prev")
-o.bind("ALT_L", "Select snappy-switcher window", "snappy-switcher select", { release = true })
-o.bind("ALT_R", "Select snappy-switcher window", "snappy-switcher select", { release = true })
+o.bind("ALT + TAB", "Focus on next window", os.getenv("HOME") .. "/.local/bin/snappy-switcher next")
+o.bind("ALT + SHIFT + TAB", "Focus on previous window", os.getenv("HOME") .. "/.local/bin/snappy-switcher prev")
+o.bind("ALT_L", "Select snappy-switcher window", os.getenv("HOME") .. "/.local/bin/snappy-switcher select", { release = true })
+o.bind("ALT_R", "Select snappy-switcher window", os.getenv("HOME") .. "/.local/bin/snappy-switcher select", { release = true })
 
 -- Make Super+F use the same maximize behavior that Omarchy exposes on Super+Alt+F.
 hl.unbind("SUPER + F")
