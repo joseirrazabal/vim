@@ -1,4 +1,5 @@
 require("config.options")
+require("config.empty-buffers")
 -- autocmds and keymaps can wait to load
 vim.api.nvim_create_autocmd("User", {
 	group = vim.api.nvim_create_augroup("LazyVim", { clear = true }),

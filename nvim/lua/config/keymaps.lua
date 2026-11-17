@@ -67,11 +67,23 @@ map("n", "<leader>cf", function()
 	vim.lsp.buf.format({ async = true }) -- Formateo del código
 end, { noremap = true, silent = true })
 
--- Moverse a la siguiente pestaña con 'tt'
+-- Moverse al buffer siguiente con 'tn'
 map("n", "tn", ":BufferLineCycleNext<CR>", { noremap = true, silent = true })
 
--- Moverse a la pestaña anterior con 'tn'
+-- Moverse al buffer anterior con 'tp'
 map("n", "tp", ":BufferLineCyclePrev<CR>", { noremap = true, silent = true })
+
+-- Nueva pestaña (tab) vacía con 'tt'
+map("n", "tt", "<cmd>tabnew<CR>", { noremap = true, silent = true, desc = "Nueva pestaña" })
+
+-- Abrir el archivo actual en una pestaña nueva con 'ts'
+map("n", "ts", "<cmd>tab split<CR>", { noremap = true, silent = true, desc = "Archivo actual en pestaña nueva" })
+
+-- Nota: moverse entre pestañas (tabs) ya viene de serie: gt / gT (y 1gt, 2gt...)
+
+-- Salir de nvim: <leader>q abre el submenú "quit" en which-key
+map("n", "<leader>qg", "<cmd>xa<CR>", { noremap = true, silent = true, desc = "Guardar todo y salir" })
+map("n", "<leader>qx", "<cmd>qa!<CR>", { noremap = true, silent = true, desc = "Salir sin guardar nada" })
 
 -- Toggle Neotree
 local function toggle_neotree()

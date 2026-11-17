@@ -36,6 +36,9 @@ return {
 			{ "<leader>tT", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Buffer Pin" },
 			{ "<leader>tq", "<cmd>bd!<CR>", desc = "Close Buffer without Saving" },
 
+			-- Grupo para salir de nvim (los atajos reales están en config/keymaps.lua)
+			{ "<leader>q", group = "quit" },
+
 			-- Grupo para telescope
 			{ "<leader>f", group = "telescope" },
 			{ "<leader>fc", ":Telescope git_bcommits<CR>", desc = "Telescope Git Commits" },
