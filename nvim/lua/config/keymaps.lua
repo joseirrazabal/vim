@@ -89,3 +89,14 @@ end
 -- Mapeo de teclas para toggle Neotree
 vim.keymap.set("n", "<F3>", toggle_neotree, { desc = "Toggle Explorer" })
 vim.keymap.set("n", "-", toggle_neotree, { desc = "Open Explorer at Root" })
+
+-- Toggle wrap: F6 prende/apaga el corte de líneas largas
+local function toggle_wrap()
+	-- wrap: parte la línea; linebreak: corta en palabras; breakindent: mantiene la indentación
+	vim.wo.wrap = not vim.wo.wrap
+	vim.wo.linebreak = vim.wo.wrap
+	vim.wo.breakindent = vim.wo.wrap
+	vim.notify("Wrap: " .. (vim.wo.wrap and "ON" or "OFF"))
+end
+
+vim.keymap.set("n", "<F6>", toggle_wrap, { noremap = true, silent = true, desc = "Toggle Wrap" })
