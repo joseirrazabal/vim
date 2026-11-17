@@ -27,18 +27,8 @@ local ensure_installed = {
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
-  event = "VeryLazy",
+  lazy = false,
   config = function()
-    local parser_config = require("nvim-treesitter.parsers")
-    parser_config.blade = {
-      install_info = {
-        url = "https://github.com/EmranMR/tree-sitter-blade",
-        files = { "src/parser.c" },
-        branch = "main",
-      },
-      filetype = "blade",
-    }
-
     vim.filetype.add({
       pattern = {
         [".*%.blade%.php"] = "blade",
@@ -55,13 +45,15 @@ return {
         table.insert(missing, lang)
       end
     end
-    if #missing > 0 then
+    if #missing > 0 and vim.fn.executable("tree-sitter") == 1 then
       ts.install(missing)
     end
 
     vim.api.nvim_create_autocmd("FileType", {
       callback = function(args)
-        pcall(vim.treesitter.start)
+        if not pcall(vim.treesitter.start, args.buf) then
+          return
+        end
         vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
       end,
     })

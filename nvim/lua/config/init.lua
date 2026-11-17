@@ -11,7 +11,6 @@ vim.api.nvim_create_autocmd("User", {
 		require("config.illuminate")
 		require("config.ufo")
 		require("config.goto-preview")
-		require("config.chatgpt")
 	end,
 })
 require("config.lazy")

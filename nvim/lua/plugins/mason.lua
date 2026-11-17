@@ -35,8 +35,8 @@ return {
 				"rust_analyzer",
 				"lua_ls",
 			},
-			-- auto-install configured servers (with lspconfig)
-			automatic_installation = true, -- not the same as ensure_installed
+			-- Servers are enabled explicitly in plugins/lsp.lua, with toolchain checks.
+			automatic_enable = false,
 		})
 
 		mason_tool_installer.setup({

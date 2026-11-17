@@ -38,6 +38,9 @@ return {
 				},
 			},
 		})
-		vim.lsp.enable("rust_analyzer")
+		-- rust-analyzer's root detection requires the Rust toolchain.
+		if vim.fn.executable("rustc") == 1 then
+			vim.lsp.enable("rust_analyzer")
+		end
 	end,
 }
